@@ -3,8 +3,8 @@
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
 {% endblock %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
@@ -14,28 +14,33 @@
 
 
 <div class="body-wrapper">
-   
+
   <div class="container">
-     
+
       <div class="header">
-          <div class="logo">Futurism</div>
+          <div class="logo">
+                <img style="height: 70px;width:auto" src = '{% static 'images/EXXiiT _ Foreverioh logo.png' %}'>
+          </div>
           <h1>Welcome</h1>
-          <p class="text">Log in to access After Memorials</p>
+          <p class="text">Log in to access EXIIT</p>
       </div>
- 
+
       <form action="{% url 'account_signup' %}" class="body" method="POST">
           {% csrf_token %}
-          {% if form.non_field_errors %}
-           <p class="error">{{form.non_field_errors}}</p>
-      
-         {% endif %}
-          <div class="input-card">
+          {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <p style="color: red;font-size: .8rem;">{{error}}</p>
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+          <div class="input-card {% if form.email.errors %}error-label{% endif %}">
              {{form.email}}
               <div class="tool-tip" id="email">Email address</div>
           </div>
           <div class="input-card">
             {{ form.first_name }}
-             
+
              <div class="tool-tip2" id="firstname">First name</div>
            </div>
            <div class="input-card">
@@ -43,7 +48,7 @@
              <div class="tool-tip2" id="lastname">Last name</div>
          </div>
          <div class="input-card">
-            {{ form.password1}}
+              {{ form.password1}}
             <div class="eye" onclick="show2()"> <i id="eye1" class="fa-regular fa-eye"></i></div>
              <div class="tool-tip2" id="password1">Password</div>
          </div>
@@ -69,7 +74,7 @@
             <div class="border"></div>
             <div class="text">OR</div>
           </div>
-         
+
       </form>
         <div class="auth-card">
           {% get_providers as socialaccount_providers %}
@@ -79,48 +84,19 @@
             {% include "socialaccount/snippets/provider_list.html" with process="login" %}
           </div>
           {% endif %}
-        
+
         </div>
   </div>
   <div id="overlay" onclick="Modal()"></div>
 </div>
 
 
-<footer>
-  <div class="card1">
-      <div class="wrapper">
-      <p class="logo">Futurism</p>
-      <p class="chakra-text">©2023</p>
-      <div class="icon-card">
-          <a href="" class="items"><i class="fa-brands fa-square-facebook"></i></a>
-          <a href="" class="items"><i class="fa-brands fa-instagram"></i></a>
-          <a href="" class="items"><i class="fa-brands fa-twitter"></i></a>
-          <a href="" class="items"><i class="fa-brands fa-youtube"></i></a>
-      </div>
-      </div>
-  </div>
-  <div class="card2">
-     <div class="wrapper">
-          <div class="items">
-              <a href="">Blog</a>
-          </div>
-          <div class="items">
-              <a href="">Privacy</a>
-          </div>
-          <div class="items">
-              <a href="">Terms</a>
-          </div>
-          <div class="items">
-              <a href="">Help</a>
-          </div>
-     </div>
-  </div>
-</footer>
+
 <div id="overlay" onclick="Modal()"></div>
 
 
 
 {% endblock %}
-{% block js %}
+{% block script %}
 <script src="{% static 'javascript/signup.js' %}"></script>
 {% endblock %}
