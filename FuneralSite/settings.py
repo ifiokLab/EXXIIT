@@ -11,18 +11,20 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+import dj_database_url
+from dotenv import load_dotenv
+load_dotenv()
+import os
 # Load environment variables from .env file
-config.read_env('.env')
+#config.read_env('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', default=False)
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'django-insecure-4b8x3_m**lre6$ohv_^l403%tr$v5*fkd13e*wn$p+ya5&i1+q'
 
@@ -78,8 +80,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
         'APP': {
-            'client_id':config('google_client_id'),
-            'secret': config('Google_secret'),
+            'client_id':os.environ.get('google_client_id'),
+            'secret': os.environ.get('Google_secret'),
             'key': ''
         }
     },
@@ -97,9 +99,9 @@ ROOT_URLCONF = 'social_app.urls'
 WSGI_APPLICATION = 'social_app.wsgi.application'
 
 
-api_key =config('api_key')
-api_secret = config('api_secret')
-bearer_token = config('bearer_token')
+api_key = os.environ.get('api_key')
+api_secret = os.environ.get('api_secret')
+bearer_token = os.environ.get('bearer_token')
 
 SOCIALACCOUNT_ADAPTER = 'FuneralApp.adapter.SocialAccountAdapter'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -162,10 +164,7 @@ WSGI_APPLICATION = 'FuneralSite.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default':dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
 
@@ -288,6 +287,6 @@ CKEDITOR_CONFIGS = {
 }
 
 
-STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 

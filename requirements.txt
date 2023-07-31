@@ -1,0 +1,4 @@
+dj-database-url
+gunicorn
+django
+python-dotenv
