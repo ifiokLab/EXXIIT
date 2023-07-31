@@ -2,3 +2,5 @@ dj-database-url
 gunicorn
 django
 python-dotenv
+django-ckeditor
+Pillow
