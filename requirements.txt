@@ -4,3 +4,4 @@ django
 python-dotenv
 django-ckeditor
 Pillow
+django-allauth
