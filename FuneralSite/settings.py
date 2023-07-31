@@ -31,7 +31,7 @@ DEBUG = os.environ.get('DEBUG', default=False)
 # SECURITY WARNING: don't run with debug turned on in production!
 #
 
-ALLOWED_HOSTS = ['foreverr.app']
+ALLOWED_HOSTS = ['foreverr.app','beta-foreverr-app.onrender.com']
 
 
 # Application definition
