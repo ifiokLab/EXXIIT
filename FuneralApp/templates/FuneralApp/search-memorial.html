@@ -14,17 +14,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    
+
     <header>
        <div class="card1">
-        <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'home' %}">Futurism</a></div>
+        <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'recent_memorial' %}">
+               <img style="height: 70px;width:auto" src = '{% static 'images/logo.png' %}'>
+        </a></div>
         <div class="create" id="create">
             <a class="link" href="{% url 'create_memorial' %}">Create</a>
             <a href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>
         </div>
        </div>
        <form class="search-bar" id="search-bar" action="" method="get">
-      
+
         <div class="search-wrapper">
             <input type="text" name="q" id="" placeholder="search by name, location, city">
             <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
@@ -68,9 +70,9 @@
                 <div class="texts">Account Settings</div>
             </a>
             {% endif %}
-            <a href="" class="items">
+            <a href="{% url 'about' %}" class="items">
                 <div class="icons"><i class="fa-solid fa-circle-question"></i></div>
-                <div class="texts">Help</div>
+                <div class="texts">About</div>
             </a>
             <a href="" class="items">
                 <div class="icons"><i class="fa-solid fa-file-invoice"></i></div>
@@ -94,37 +96,38 @@
 
         </div>
     </div>
-    
+
     <div class="body-container">
-        <h1>Recent Memorials </h1>
-        
+        <h1>You searched for "{{query}}" </h1>
+
         <div class="grid-container">
            {% for object in results %}
            {% for item in object.biography.all%}
            {% if item.cover_photo %}
-            <div class="card">
-                <img class='grid-item grid-item-1' src="{{item.cover_photo.url}}" alt=''>
-                <div class="text-wrapper">
+             <div class="card">
+              <img class='grid-item grid-item-1' src="{{item.cover_photo.url}}" alt=''>
+                <a href="{% url 'create_biography' item.deceased.id %}" class="text-wrapper">
                     <div class="name">{{item.deceased.first_name}} {{item.deceased.last_name}}</div>
                     <div class="date">{{item.deceased.month_birth}} {{item.deceased.year_birth}} - {{item.deceased.month_death}} {{item.deceased.year_death}}</div>
                     <div class="text">In loving memory of {{item.deceased.first_name}} {{item.deceased.last_name}}, who passed away on  {{item.deceased.day_death}},{{item.deceased.month_death}} {{item.deceased.year_death}} </div>
-                    <a class="visit" href="{% url 'create_biography' item.deceased.id %}">Visit Memorial</a>
-                </div>
+                    <!--<a class="visit" href="{% url 'create_biography' item.deceased.id %}">Visit Memorial</a>-->
+                </a>
             </div>
            {% endif %}
-           
+
            {% endfor %}
            {% empty %}
            <p>No result matching query "{{query}}"</p>
            {% endfor %}
-        </div>   
-           
+        </div>
+
     </div>
    <div class="search-modal" id="search-modal" onclick="close_search(event)"></div>
    <div class="fixed-nav">
-    <a href="{% url 'home' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
+    <a href="{% url 'recent_memorial' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
     <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
-    <a href="{% url 'recent_memorial' %}" class="btns" title="recent-memorial"><i class="fa-solid fa-compass"></i></a>
+    <a href="{% url 'faq' %}" class="btns" title="FAQ"><i class="fa-solid fa-circle-question"></i></a>
+    <a href="{% url 'about' %}" class="btns" title="About"><i class="fa-solid fa-compass"></i></a>
     <a href="{% url 'create_memorial' %}" class="btns" title="create memorial"><i class="fa-solid fa-circle-plus"></i></a>
     <a href="#" class="btns profile">
         <div>IU</div>

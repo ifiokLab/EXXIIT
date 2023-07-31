@@ -6,15 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
     <title>EXIIT</title>
 </head>
 <style>
-   
-   *{
-    font-family: 'Fugaz One', cursive;
-   }
+
 body{
 	background:#000;
 }
@@ -34,7 +31,7 @@ body{
   width: 150px;
   height: 200px;
   border-radius: 150px / 40px;
-  
+
   background: #190f02;
  background: linear-gradient(#e48825, #e78e0e, #833c03);
 }
@@ -44,7 +41,7 @@ body{
   border-radius: 50%;
   border: 1px solid #d47401;
   background: #b86409;
- 
+
 }
 
 .candle:after {
@@ -55,10 +52,10 @@ body{
   border-radius: 50%;
   top: 14px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
- 
+
 }
 
-.thread {  
+.thread {
   width: 6px;
   height: 36px;
   top: -17px;
@@ -67,7 +64,7 @@ body{
   border-radius: 40% 40% 0 0;
   transform: translateX(-50%);
   background: #121212;
-  
+
 }
 
 .flame {
@@ -78,8 +75,8 @@ body{
   transform: translateX(-50%);
   bottom: 100%;
   border-radius: 50% 50% 20% 20%;
-  
- 
+
+
   background: linear-gradient(white 80%, transparent);
   animation: moveFlame 4s linear infinite, enlargeFlame 3s linear infinite;
 }
@@ -111,7 +108,7 @@ body{
   transform: translateX(-50%);
   background: rgba(0, 133, 255, .7);
   box-shadow: 0 -40px 30px 0 #dc8a0c, 0 40px 50px 0 #dc8a0c,
-  inset 3px 0 2px 0 rgba(0, 133, 255, .6), 
+  inset 3px 0 2px 0 rgba(0, 133, 255, .6),
   inset -3px 0 2px 0 rgba(0, 133, 255, .6);
 }
 
@@ -142,13 +139,14 @@ body{
   50% { opacity: .8;}
 }
 
+
 h1{
   font-family: 'Fugaz One', cursive;
 }
 </style>
 <body>
     <div class="holder">
-     
+
         <div class="candle">
             <div class="blinking-glow"></div>
             <div class="thread"></div>
@@ -156,10 +154,8 @@ h1{
             <div class="flame"></div>
         </div>
     </div>
-   
-  <div style="text-align: center;">
-    <marquee behavior="scroll" direction="left"><img src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\mobile-large.png" alt=""></marquee>
 
+  <div style="text-align: center;">
     <h1 style="color: white;text-align: center;" >in loving memory of {{deceased.first_name}} {{deceased.last_name}}</h1>
     <audio hidden id="myAudio" controls autoplay loop src="{% static 'images/too.mp3' %}" ></audio>
   </div>

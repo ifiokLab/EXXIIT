@@ -27,7 +27,7 @@
         </div>
         <div class="side-nav2">
            <div class="nav-items">
-                <a href="">
+                <a href="{% url 'recent_memorial' %}">
                     <div class="icons">
                         <i class="fa-solid fa-house"></i>
                     </div>
@@ -44,17 +44,17 @@
                 </div>
             </div>
 
-            <div class="nav-items">
-                <a href="">
+            <div class="nav-items" onclick="open_search()">
+                <div>
                     <div class="icons">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <div class="text">Search</div>
-                </a>
+                </div>
             </div>
 
             <div class="nav-items">
-                <a href="">
+                <a href="{% url 'about' %}">
                     <div class="icons">
                         <i class="fa-regular fa-compass"></i>
                     </div>
@@ -80,7 +80,7 @@
                 </a>
             </div>
 
-            <div class="nav-items profile">
+             <div class="nav-items profile">
                 <a href="">
                     <div class="icons">
                         {% if request.user.profile.image %}
@@ -92,7 +92,7 @@
                     <div class="text">Profile</div>
                 </a>
             </div>
-           
+
         </div>
 
     </div>
@@ -164,13 +164,13 @@
                         {% if is_following %}
                             Unfollow
                         {% else %}
-                            Follow 
+                            Follow
                         {% endif %}
                     </button>
                     {% endif %}
                 </div>
 
-                
+
             </div>
        </div>
 
@@ -184,7 +184,6 @@
             </div>
         </div>
        </div>
-       
        <div class="gallery-laptop">
         {% for data in post %}
         <div class="item"><img src="{{ data.image.url }}"></div>
@@ -224,7 +223,7 @@
             </div>
         </div>
         <div class="mobile-detail">
-           
+
 
             {% if profile %}
             {% if profile.user.id  == request.user.id %}
@@ -266,7 +265,7 @@
                     <div class="num">{{post|length}}</div>
                     <div class="title">posts</div>
                 </div>
-               
+
                 <div class="items">
                     <div class="num">{{followers_count}}</div>
                     <div class="title">followers</div>
@@ -285,7 +284,7 @@
                 <div class="text">I'm a professional software developer, who mainly works with Python, Django, ReactJs, Flutter,Dart, Nodejs, and SQL in my day-to-day job.</div>
             </div>
             <div class="follow-btn">
-               
+
                 {% if request.user.id  == current_user.id %}
                 <button  title="You cannot follow yourself!">follow</button>
                 {% else %}
@@ -293,7 +292,7 @@
                     {% if is_following %}
                         Unfollow
                     {% else %}
-                        Follow 
+                        Follow
                     {% endif %}
                 </button>
                 {% endif %}
@@ -319,9 +318,9 @@
             {% empty %}
             <h3>No Post</h3>
             {% endfor %}
-            
+
           </div>
-          
+
     </div>
 
     <div class="post-container" id="post-container" onclick="post_modal(event)">
@@ -330,10 +329,8 @@
         </div>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            
-           
             <div class="header">
-                <h1 style="flex-direction: row;justify-content: center;" >Create new Post</h1>
+                <h1>Create new Post</h1>
             </div>
 
             <div class="input-container">
@@ -342,12 +339,11 @@
                 </select>
 
                <div class="items">
-               
+
                     <label for="">Title</label>
                     <input name="title" required maxlength="100" id="search-bar" type="text" placeholder="whats on your mind?...">
-                    
+
                </div>
-              
                <div class="items">
                     <label for="">Description</label>
                     <textarea placeholder="contents.." name="content" cols="40" rows="10" required="" id="id_content"></textarea>
@@ -355,10 +351,9 @@
                <div class="items">
                 {{form.image}}
                 </div>
-                
-               
-                   
-              
+
+
+
             </div>
 
             <div class="btn-card">
@@ -367,16 +362,16 @@
         </form>
     </div>
     <div class="fixed-nav">
-        <a href="{% url 'home' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
+        <a href="{% url 'recent_memorial' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
         <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
         <div class="btns" onclick="show_post()" title="Create Post"><i class="fa-solid fa-blog"></i></div>
-        <a href="{% url 'recent_memorial' %}" class="btns" title="recent-memorial"><i class="fa-solid fa-compass"></i></a>
-      
+        <a href="{% url 'about' %}" class="btns" title="About"><i class="fa-solid fa-compass"></i></a>
+
         <a href="#" class="btns profile">
             <div>{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
         </a>
-       
-        
+
+
     </div>
   <form action="{% url 'search_memorials' %}" method="get" class="index-form" id="index-form">
    <div class="wrapper">
@@ -391,6 +386,4 @@
     <div class="modal" id="modal" onclick="modal()"></div>
 </body>
 <script src="{% static 'javascript/profile.js' %}"></script>
-<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
-<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 </html>

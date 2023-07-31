@@ -18,17 +18,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    
+
     <header>
        <div class="card1">
-        <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'home' %}">Futurism</a></div>
+        <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'recent_memorial' %}">
+                <img style="height: 70px;width:auto" src = '{% static 'images/logo.png' %}'>
+        </a></div>
         <div class="create" id="create">
             <a class="link" href="{% url 'create_memorial' %}">Create</a>
             <a href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>
         </div>
        </div>
        <form class="search-bar" id="search-bar" action="{% url 'search_memorials' %}" method="get">
-        
+
         <div class="search-wrapper">
             <input type="text" name="q" id="q" placeholder="search by name, location, city">
             <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
@@ -99,7 +101,7 @@
 
         </div>
     </div>
-    
+
     <div class="body-container">
         <h1>Recent Memorials</h1>
         <div class="grid-container">
@@ -116,15 +118,16 @@
             </div>
            {% endif %}
            {% endfor %}
-        </div>   
-           
+        </div>
+
     </div>
    <div class="search-modal" id="search-modal" onclick="close_search(event)"></div>
-  
+
    <div class="fixed-nav">
-       <a href="{% url 'home' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
+       <a href="{% url 'recent_memorial' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
        <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
-       <a href="{% url 'recent_memorial' %}" class="btns" title="recent-memorial"><i class="fa-solid fa-compass"></i></a>
+            <a href="{% url 'faq' %}" class="btns" title="FAQ"><i class="fa-solid fa-circle-question"></i></a>
+       <a href="{% url 'about' %}" class="btns" title="About"><i class="fa-solid fa-compass"></i></a>
        <a href="{% url 'create_memorial' %}" class="btns" title="create memorial"><i class="fa-solid fa-circle-plus"></i></a>
        <a href="#" class="btns profile">
            <div>IU</div>
@@ -144,8 +147,10 @@
  <div class="auth-wrapper">
     <div class="auth-container">
         <div class="box1">
-            <svg height="50" viewBox="-3 -3 82 82" width="50" style="display: block;"><title>Pinterest logo</title><circle cx="38" cy="38" fill="white" r="40"></circle><path d="M27.5 71c3.3 1 6.7 1.6 10.3 1.6C57 72.6 72.6 57 72.6 37.8 72.6 18.6 57 3 37.8 3 18.6 3 3 18.6 3 37.8c0 14.8 9.3 27.5 22.4 32.5-.3-2.7-.6-7.2 0-10.3l4-17.2s-1-2-1-5.2c0-4.8 3-8.4 6.4-8.4 3 0 4.4 2.2 4.4 5 0 3-2 7.3-3 11.4C35.6 49 38 52 41.5 52c6.2 0 11-6.6 11-16 0-8.3-6-14-14.6-14-9.8 0-15.6 7.3-15.6 15 0 3 1 6 2.6 8 .3.2.3.5.2 1l-1 3.8c0 .6-.4.8-1 .4-4.4-2-7-8.3-7-13.4 0-11 7.8-21 22.8-21 12 0 21.3 8.6 21.3 20 0 12-7.4 21.6-18 21.6-3.4 0-6.7-1.8-7.8-4L32 61.7c-.8 3-3 7-4.5 9.4z" fill="#e60023" fill-rule="evenodd"></path></svg>
-            <h1>Welcome to Futurism</h1>
+             <div class="logo"> <a style="text-decoration: none;color:white;" href="{% url 'recent_memorial' %}">
+                <img style="height: 100px;width:auto;margin:0;padding:0;" src = '{% static 'images/logo.png' %}'>
+        </a></div>
+            <h1>Welcome to EXXiiT</h1>
         </div>
         <div class="box2">
             <a href="{% url 'account_signup' %}" class="items email">Continue with email</a>

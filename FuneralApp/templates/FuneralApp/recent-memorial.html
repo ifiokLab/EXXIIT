@@ -6,38 +6,64 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>EXXiiT</title>
     <link rel="stylesheet" href="{% static 'css/recent-memorial.css' %}">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unna&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    
+   <!-- Preloader Start -->
+     <div class="preloader-wrapper" id="preloader-wrapper">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <!-- Preloader End -->
+
+
+
+    <div class="message-wrapper">
+        <div class="message">
+            <div class="icon"><i class=""></i></div>
+            <div class="info"></div>
+        </div>
+    </div>
+
+
     <header>
        <div class="card1">
-        <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'home' %}">Futurism</a></div>
+        <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'recent_memorial' %}">
+              <img style="height: 70px;width:auto" src = '{% static 'images/logo.png' %}'>
+        </a></div>
         <div class="create" id="create">
             <a class="link" href="{% url 'create_memorial' %}">Create</a>
-            <a href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>
+            <!--<a href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>-->
         </div>
        </div>
        <form class="search-bar" id="search-bar" action="{% url 'search_memorials' %}" method="get">
-        
+
         <div class="search-wrapper">
             <input type="text" name="q" id="q" placeholder="search by name, location, city">
-            <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+           <!-- <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>-->
         </div>
        </form>
         <div class="card2">
             <div id="search-btn" class="search-btn" onclick="show_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <div class="notification" onclick="notification()">
-                <i class="fa-regular fa-bell"></i>
-            </div>
-            <div class="profile" onclick="profile()">
-                <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
-            </div>
+            {% if user.is_authenticated %}
+                <div class="notification" onclick="notification()">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+                 <div class="profile" onclick="profile()">
+                    <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
+                </div>
+            {% endif %}
+
         </div>
     </header>
     <div class="notification-wrapper" id="notification-wrapper" onclick="close_not(event)">
@@ -68,9 +94,9 @@
                 <div class="texts">Account Settings</div>
             </a>
             {% endif %}
-            <a href="" class="items">
+            <a href="{% url 'about' %}" class="items">
                 <div class="icons"><i class="fa-solid fa-circle-question"></i></div>
-                <div class="texts">Help</div>
+                <div class="texts">About</div>
             </a>
             <a href="" class="items">
                 <div class="icons"><i class="fa-solid fa-file-invoice"></i></div>
@@ -95,201 +121,611 @@
 
         </div>
     </div>
-    
+
     <div class="body-container">
-        <h1>Recent Memorials</h1>
+       <!-- <h1>Recent Memorials</h1>-->
         <div class="grid-container">
            {% for item in data %}
            {% if item.cover_photo %}
-            <div class="card">
-                <img class='grid-item grid-item-1' src="{{item.cover_photo.url}}" alt=''>
-                <div class="text-wrapper">
-                    <div class="name">{{item.deceased.first_name}} {{item.deceased.last_name}}</div>
+
+            <div class="card" >
+              <img class='grid-item grid-item-1' src="{{item.cover_photo.url}}" alt=''>
+                <div class="text-wrapper" onclick="showReel('{{item.id}}')">
+                    <div class="name">{{item.deceased.first_name}} {{item.deceased.last_name}} </div>
                     <div class="date">{{item.deceased.month_birth}} {{item.deceased.year_birth}} - {{item.deceased.month_death}} {{item.deceased.year_death}}</div>
                     <div class="text">In loving memory of {{item.deceased.first_name}} {{item.deceased.last_name}}, who passed away on  {{item.deceased.day_death}},{{item.deceased.month_death}} {{item.deceased.year_death}} </div>
-                    <a class="visit" href="{% url 'create_biography' item.deceased.id %}">Visit Memorial</a>
+                    <!--<a class="visit" href="{% url 'create_biography' item.deceased.id %}">Visit Memorial</a>-->
                 </div>
             </div>
+
            {% endif %}
            {% endfor %}
-        </div>   
-           
-    </div>
-
-    <div class="reel-container" id="reel-container">
-        <div class="swiper-wrapper">
-            {% for parent in recent_bio %}
-            <div class="m-body m-slides swiper-slide" id="m-slides-{{parent.id}}">
-                <div onclick="HideSwipeUp()" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></div>
-                <input type="hidden" id="m-like-cover-1" value="{{parent.id}}">
-                {% if parent.cover_photo %}
-                <div class="cover-image">
-                 <img src="{{parent.cover_photo.url}}" alt="">
-                </div>
-                {% else %}
-                <div class="cover-image">
-                    <img src="{% static 'images/placeholder-cover-photo-3.webp' %}" alt="">
-                    <div class="text-cover">No cover photo uploaded</div>
-                </div>
-                {% endif %}
-                
-                <div class="sub-card">
-                    <div class="top-nav">
-                       
-                       
-                    </div>
-                    
-                    <div class="bottom-wrapper">
-                        <div class="deceased">
-                            <h1>{{parent.deceased.first_name}} {{parent.deceased.last_name}}</h1>
-                            <p class="text">{{parent.deceased.month_birth}} {{parent.deceased.day_birth}}, {{parent.deceased.year_birth}} - {{parent.deceased.month_death}} {{parent.deceased.day_death}}, {{parent.deceased.year_death}}</p>
-                        </div>
-                        {% if request.user.id == parent.deceased.user.id %}
-                        <div class="m-invite-card">
-                            <div class="icon"><i class="fa-solid fa-user-group"></i></div>
-                            <div class="text">No contributors yet</div>
-                            <div class="invite-a" style="cursor:pointer;text-decoration: underline;" onclick="show_invite()">Invite</div>
-                        </div>
-                        {% else %}
-                        <div class="ratings-container">
-                            <div class="rate-card">
-                                <span>{{ num_tributes}} Tributes</span>
-                            </div>
-                            <div class="rate-card">
-                                <span>23 Reactions</span>
-                            </div>
-                            <div class="rate-card">
-                                <span>{{num_comments}} Comments</span>
-                            </div>
-                            <div class="rate-card" onclick="event_info()">
-                                <span>Events +</span>
-                            </div>
-                        </div>
-                        {% endif %}
-                        <div class="m-candle-card" style="margin-bottom: 50px;">
-                            <img style="height: 50px;width:auto;" src="{% static 'images/sad-candle.gif' %}" onclick="list_candles()" alt="">
-                            <i style="font-size: 2rem;color:green;margin: 0 8px;" class="fa-solid fa-tree"></i>
-                            <img style="height: 40px;width:auto;" src="{% static 'images/bloom.gif' %}"  alt="">
-                            <i style="font-size: 1.5rem;color:white;margin: 0 8px;" class="fa-solid fa-sack-dollar fa-beat"></i>
-                           
-                            <div class="event-info-wrapper" id="event-info-wrapper">
-                                <div class="event-info">
-                                    <div class="items">
-                                        <div class="title">Memorial Service:</div>
-                                        <div class="date">June 10th, 2023</div>
-                                    </div>
-                                    <div class="items">
-                                        <div class="title">Burial Service:</div>
-                                        <div class="date">June 10th, 2023</div>
-                                    </div>
-                                    <div class="items">
-                                        <div class="title">Live:</div>
-                                        <div class="date">9pm</div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            <div class="list-candles" id="list-candles" onclick="close_list()">
-                                <div class="title">Recent candles lit</div>
-                                {% if candle_list %}
-                                {% for candle in candle_list %}
-                               <div class="items">
-                                    <div class="icons">
-                                        {% if candle.user.profile.image %}
-                                        <img src="{{candle.user.profile.image.url}}" alt="">
-                                        {% else %}
-                                        <img src="{% static 'images/default.png' %}">
-                                        {% endif %}
-                                    </div>
-                                    <div class="name">{{candle.user.first_name}} {{candle.user.last_name}}</div>
-                               </div>
-                               {% endfor %}
-                               {% endif %}
-                            </div>
-                           {% if candle_list %}
-                            {% for candle in candle_list %}
-                            <marquee class="container-mq" behavior="scroll" direction="left" >
-                                <span style="color: white;  font-family: 'Fugaz One', cursive;"><!--{{candle.user}} has just lit a candle**--></span>
-                               
-                            </marquee>
-                            {% endfor %}
-                            {% else %}
-                            <div class="text">No candles lit yet.</div>
-                            <a href="">View</a>
-                            {% endif %}
-                        </div>
-                       <!-- <div class="bottom-nav">
-                           
-                            <div class="card1">
-                               
-                                <div class="items like-cover" data-photo-id="{{ parent.id }}"> 
-                                    <i class="fa-sharp fa-regular fa-heart"></i>
-                                    <span class="num">1</span>
-                                </div>
-                                <div class="items share-btn" >
-                                    <i class="fa-solid fa-share-nodes"></i>
-                                </div>
-                               
-                            </div>
-                           
-                        </div>-->
-                    </div>
-                </div>
-               <!-- <div class="left" onclick="m_plusDivs(-1)">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </div>
-                <div class="right" onclick="m_plusDivs(1)">
-                    <i class="fa-solid fa-arrow-right"></i>
-                </div>-->
-    
-                <div class="bottom-nav">
-                           
-                    <div class="card1">
-                        <div class="items fetch-tribute" title="Tribute" data-deceased-id = "{{parent.deceased.id}}">
-                            <i class="fa-solid fa-hands" data-deceased-id = "{{parent.deceased.id}}"></i>
-                        </div>
-                        <div title="like" class="items like-cover" id="like-cover-btn" data-photo-id="{{ parent.id }}"> 
-                            <i class="fa-sharp fa-regular fa-heart"></i>
-                            <span class="num" id="num-cover"></span>
-                            <div class="fly-icon">
-                                <i class="fa-solid fa-heart"></i>
-                            </div>
-                        </div>
-                        <div title="share" class="items share-btn" style="display: flex;flex-direction:row;justify-content: center;padding: 20px 0;" >
-                            <i class="fa-solid fa-share"></i>
-                        </div>
-                       
-                    </div>
-                   
-                </div>
-            </div>
-            {% endfor %}
         </div>
+
     </div>
+    <!--reel starts-->
+     <div class="reel-container" id="reel-container">
+    <div class="swiper-wrapper">
+{% for data in data %}
+{% if data.cover_photo %}
+<a href = "{% url 'create_biography' data.deceased.id %}" class="m-body m-slides reel-border swiper-slide" id="m-slides-{{data.id}}">
+<div onclick="hideReel(event)" class="back-arrow">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Home Feeds</span>
+    </div>
+    <input type="hidden" id="m-like-cover-1" value="{{data.id}}" class = 'player-photo-id'>
+
+    <input type="hidden" name="" value="{{data.deceased.id}}" class="recipientId">
+    {% if data.cover_photo.width > data.cover_photo.height %}
+         <div class="cover-image" style=" background-image: url('{{data.cover_photo.url}}');background-repeat: no-repeat;background-position: center;background-size: contain;height:100vh;width:100%;">
+        <!--<img style="background-color: black;" src="{{data.cover_photo.url}}" alt="" >-->
+
+        </div>
+    {% else %}
+     <div class="cover-image" style=" background-image: url('{{data.cover_photo.url}}');background-repeat: no-repeat;background-position: center;background-size: contain;height:100vh;width:100%;">
+        <!--<img style="background-color: black;" src="{{data.cover_photo.url}}" alt="" >-->
+
+        </div>
+    {% endif %}
 
 
+
+
+   <div class="sub-card">
+       <div class="bottom-wrapper">
+           <div class="deceased reel-deceased" >
+               <div class = "box-wrappper">
+                   <h1>{{data.deceased.first_name}} {{data.deceased.last_name}} </h1>
+                   <div class = "follow-btn follow-text"  data-deceased-id = "{{data.deceased.id}}">Follow</div>
+               </div>
+               <p class="text">{{data.deceased.month_birth}} {{data.deceased.day_birth}}, {{data.deceased.year_birth}} - {{data.deceased.month_death}} {{data.deceased.day_death}}, {{data.deceased.year_death}}</p>
+
+                   <div class="items fetch-tribute" title="Tribute" data-deceased-id = "{{data.deceased.id}}">
+                   <input class= 'deceased-name' type="hidden" name="" value="{{data.deceased.first_name}} {{data.deceased.last_name}}">
+                    <input type="text" placeholder="add comment...." class = 'reel-add-comment' id = 'reel-add-comment' >
+
+                 </div>
+           </div>
+
+
+
+
+
+   <div class="bottom-nav">
+       {% csrf_token %}
+       <div class="card1">
+
+           <div title="share" class="items" onclick="showGift(event)" >
+             <i class="fa-solid fa-gift"></i>
+                <span class = "num-gifts" style="font-size: .9rem;">
+                    Give
+                </span>
+           </div>
+           <div title="share" class="items follow-btn" data-deceased-id = "{{data.deceased.id}}">
+             <i class="fa-solid fa-user-plus" data-deceased-id = "{{data.deceased.id}}"></i>
+                <span class = "follow-num">
+
+                </span>
+           </div>
+           <div class="items fetch-tribute" title="Tribute" data-deceased-id = "{{data.deceased.id}}">
+               <input class= 'deceased-name' type="hidden" name="" value="{{data.deceased.first_name}} {{data.deceased.last_name}}">
+               <i class="fa-solid fa-hands" data-deceased-id = "{{data.deceased.id}}"></i>
+                <span class="num-tributes"></span>
+
+           </div>
+           <div title="like" class="items like-cover" id="like-cover-btn" data-photo-id="{{ data.id }}">
+               <i class="fa-sharp fa-regular fa-heart"></i>
+               <span class="num" id="num-cover"></span>
+               <div class="fly-icon">
+                   <i class="fa-solid fa-heart"></i>
+               </div>
+           </div>
+           <div title="share" class="items share-btn" >
+               <i class="fa-solid fa-share"></i>
+           </div>
+
+       </div>
+
+   </div>
+</div>
+
+
+    </div>
+</a>
+ {% endif %}
+{% endfor %}
+</div>
+ </div>
+
+    <!--reel ends-->
    <div class="search-modal" id="search-modal" onclick="close_search(event)"></div>
-  
+
    <div class="fixed-nav">
-       <a href="{% url 'home' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
+       <a href="{% url 'recent_memorial' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
        <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
-       <a href="{% url 'recent_memorial' %}" class="btns" title="recent-memorial"><i class="fa-solid fa-compass"></i></a>
+        <a href="{% url 'faq' %}" class="btns" title="FAQ"><i class="fa-solid fa-circle-question"></i></a>
+       <a href="{% url 'about' %}" class="btns" title="About"><i class="fa-solid fa-compass"></i></a>
        <a href="{% url 'create_memorial' %}" class="btns" title="create memorial"><i class="fa-solid fa-circle-plus"></i></a>
-       <a href="#" class="btns profile">
-           <div>IU</div>
+       {% if user.is_authenticated %}
+        <a href="#" class="btns profile">
+           <div>{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
        </a>
+       {% endif %}
    </div>
  <form action="{% url 'search_memorials' %}" method="get" class="index-form" id="index-form">
   <div class="wrapper">
    <div class="search-container">
        <input type="text" name="q"  placeholder="search by name, location, city">
-       <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+     <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
    </div>
    <div class="close" onclick="close_searchx()"><i class="fa-solid fa-circle-xmark"></i></div>
   </div>
  </form>
 
+  <form action="" class="m-comment-container" id="m-tribute-container" >
+    {% csrf_token %}
+
+    <div class="header">
+        <div class="card1">
+            <div class="icon">
+                <i class="fa-sharp fa-regular fa-comments"></i>
+            </div>
+            <div class="text">Add a tribute in memory of {{deceased.first_name}} {{deceased.last_name}}</div>
+        </div>
+
+        <div class="card2" onclick="m_tribute_comment()">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+    <div class="body m-comment-box m-tribute-box">
+      <!-- <div class="comment-card">
+            <div class="card1">
+                <div class="box1">
+                    <div class="icon">IU</div>
+                    <div class="user-box">
+                        <div class="name">Ifiok Udoh</div>
+                        <div class="time">Posted 23 hours ago</div>
+                    </div>
+                </div>
+                <div class="box2" onclick="show_delete()"><i class="fa-solid fa-ellipsis"></i></div>
+            </div>
+            <div class="card2">
+                <div class="text comment-text">Lovely</div>
+            </div>
+            <div class="delete-card" id="delete-card">
+                <div class="icon"><i class="fa-solid fa-trash"></i></div>
+                <div class="text">Delete</div>
+            </div>
+            </div>
+        -->
+    </div>
+    <div class="mobile-bottom-nav-wrapper">
+        <div class="reply-top-container" id="reply-top-container-tribute">
+            <div class="reply-to"></div>
+            <div class="reply-cancel" onclick="clearTributeReplyData()"><i class="fa-solid fa-circle-xmark"></i></div>
+        </div>
+            <div class="bottom-nav">
+                <div class="card1">
+                    <input type="hidden" id="parent-reply-id-tribute-m" name="tribute_parent_reply_id">
+                    <input type="hidden" id="comment-id-tribute-m" name="tribute_comment_id">
+                    <input type="hidden" id="m-deceased-id" value="">
+                    <textarea name="tribute-deceased" id="textarea" cols="38" rows="4" placeholder=""></textarea>
+                </div>
+                <div class="card2">
+                    <button>Post</button>
+                </div>
+            </div>
+       </div>
+    <div class="m-comment-modal" id="m-tribute-modal" ></div>
+</form>
+
+<div class="share-container" id="share-container">
+        <div class="share-wrapper">
+            <div class="card1" onclick="close_share()">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="card2">
+                <div class="box1">
+                    <h2>Share</h2>
+                    <p class="share-deceased-name"></p>
+                </div>
+                <div class="box2">
+
+                    <div class="items-share" onclick="share_facebook(fname = '{{deceased.first_name}}',lname = '{{deceased.last_name}}',month = '{{deceased.month_death}}',year = '{{deceased.year_death}}',url='https://kinglyrae.pythonanywhere.com/create_biography/{{deceased.id}}')">
+                        <div class="icon">
+                            <svg width="53" height="53" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(0.75)"><path d="M53 26.5C53 11.863 41.137 0 26.5 0S0 11.863 0 26.5c0 13.23 9.69 24.192 22.36 26.18V34.16h-6.73V26.5h6.73v-5.838c0-6.64 3.954-10.31 10.01-10.31 2.898 0 5.93.517 5.93.517v6.522h-3.343c-3.292 0-4.316 2.044-4.316 4.14V26.5h7.35l-1.176 7.66h-6.174v18.52C43.31 50.691 53 39.73 53 26.5Z" fill="#1877F2"></path><path d="m36.815 34.16 1.175-7.66h-7.35v-4.969c0-2.096 1.026-4.14 4.317-4.14h3.344v-6.522s-3.033-.517-5.932-.517c-6.055 0-10.01 3.67-10.01 10.31V26.5h-6.728v7.66h6.728v18.52c1.351.211 2.733.32 4.141.32s2.79-.109 4.14-.32V34.16h6.175Z" fill="#fff"></path></svg>
+                        </div>
+
+                    </div>
+                    <div class="items-share" onclick="share_messenger(fname = '{{deceased.first_name}}',lname = '{{deceased.last_name}}',month = '{{deceased.month_death}}',year = '{{deceased.year_death}}',url='https://kinglyrae.pythonanywhere.com/create_biography/{{deceased.id}}')">
+                        <div class="icon">
+                            <svg width="53" height="53" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(0.75)"><path d="M26.498 0C11.573 0 0 10.937 0 25.703c0 7.724 3.166 14.401 8.32 19.012.43.384.696.927.71 1.51l.145 4.717a2.118 2.118 0 0 0 2.974 1.874l5.26-2.318a2.13 2.13 0 0 1 1.418-.106 28.987 28.987 0 0 0 7.67 1.02c14.925 0 26.498-10.937 26.498-25.703C52.995 10.944 41.423 0 26.498 0Z" fill="url(#messengerIcon_svg__a)"></path><path d="m10.586 33.221 7.783-12.347a3.977 3.977 0 0 1 5.75-1.06l6.194 4.643a1.59 1.59 0 0 0 1.915-.006l8.36-6.346c1.113-.848 2.57.49 1.828 1.675l-7.79 12.342a3.977 3.977 0 0 1-5.75 1.06l-6.194-4.644a1.59 1.59 0 0 0-1.915.007l-8.36 6.346c-1.112.848-2.57-.484-1.821-1.67Z" fill="#fff"></path><defs><radialGradient id="messengerIcon_svg__a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(57.7437 0 0 57.7436 10.202 52.707)"><stop stop-color="#09F"></stop><stop offset="0.61" stop-color="#A033FF"></stop><stop offset="0.935" stop-color="#FF5280"></stop><stop offset="1" stop-color="#FF7061"></stop></radialGradient></defs></svg>
+                        </div>
+
+                    </div>
+                    <div class="items-share" onclick="share_whatsapp(fname = '{{deceased.first_name}}',lname = '{{deceased.last_name}}',month = '{{deceased.month_death}}',year = '{{deceased.year_death}}',url='https://kinglyrae.pythonanywhere.com/create_biography/{{deceased.id}}')">
+                        <div class="icon">
+                            <svg width="53" height="53" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(0.75)"><path d="M26.5 53C41.136 53 53 41.136 53 26.5S41.136 0 26.5 0 0 11.864 0 26.5 11.864 53 26.5 53Z" fill="#25D366"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M27.373 41.243h-.006c-2.637 0-5.229-.662-7.53-1.918l-8.354 2.192 2.236-8.166a15.73 15.73 0 0 1-2.104-7.878c.004-8.688 7.073-15.756 15.758-15.756a15.655 15.655 0 0 1 11.147 4.621 15.662 15.662 0 0 1 4.611 11.148c-.003 8.686-7.07 15.754-15.758 15.757Zm-7.15-4.77.479.284a13.077 13.077 0 0 0 6.666 1.825h.005c7.22 0 13.095-5.875 13.097-13.097.002-3.5-1.36-6.79-3.832-9.266a13.007 13.007 0 0 0-9.26-3.84c-7.224 0-13.1 5.874-13.102 13.095a13.065 13.065 0 0 0 2.002 6.97l.312.496-1.323 4.833 4.957-1.3Zm14.55-7.595c.274.133.46.223.54.355.097.164.097.953-.23 1.872-.329.92-1.902 1.76-2.658 1.872-.678.102-1.537.144-2.48-.156a22.604 22.604 0 0 1-2.245-.829c-3.69-1.594-6.185-5.171-6.657-5.848a4.507 4.507 0 0 0-.069-.097l-.003-.004c-.208-.278-1.605-2.141-1.605-4.07 0-1.813.891-2.764 1.302-3.201l.076-.083c.361-.394.788-.493 1.05-.493.263 0 .526.003.755.014.028.002.058.002.088.001.23 0 .516-.003.798.675.109.261.267.648.435 1.056.339.825.713 1.736.779 1.868.098.197.164.427.033.69l-.056.112c-.098.201-.17.349-.338.544-.066.077-.134.16-.202.243-.135.165-.27.33-.389.447-.197.197-.402.41-.172.804.23.394 1.02 1.683 2.19 2.727a10.17 10.17 0 0 0 2.906 1.837c.109.047.196.085.26.117.394.198.624.165.854-.098.23-.263.984-1.15 1.246-1.544.263-.394.525-.328.886-.197.361.132 2.297 1.084 2.69 1.281l.216.105Z" fill="#FDFDFD"></path></svg>
+                        </div>
+
+                    </div>
+
+                    <div class="items-share" onclick="share_mail(fname = '{{deceased.first_name}}',lname = '{{deceased.last_name}}',month = '{{deceased.month_death}}',year = '{{deceased.year_death}}',url='https://kinglyrae.pythonanywhere.com/create_biography/{{deceased.id}}' )">
+                        <div class="icon">
+                            <svg width="53" height="53" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(0.75)"><rect width="53" height="53" rx="26.5" fill="#AAB8CB"></rect><path fill-rule="evenodd" clip-rule="evenodd" d="M16 18.002a1.5 1.5 0 0 0-1.5 1.5v15a1.5 1.5 0 0 0 1.5 1.5h21a1.5 1.5 0 0 0 1.5-1.5v-15a1.5 1.5 0 0 0-1.5-1.5H16Zm-3.5 1.5a3.5 3.5 0 0 1 3.5-3.5h21a3.5 3.5 0 0 1 3.5 3.5v15a3.5 3.5 0 0 1-3.5 3.5H16a3.5 3.5 0 0 1-3.5-3.5v-15Z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M16.71 20.388a1 1 0 0 1 1.404-.176l8.386 6.523 8.386-6.523a1 1 0 1 1 1.228 1.58l-9 7a1 1 0 0 1-1.228 0l-9-7a1 1 0 0 1-.176-1.404Z" fill="#fff"></path></svg>
+                        </div>
+
+                    </div>
+                    <div class="items-share" onclick="share_twitter(fname = '{{deceased.first_name}}',lname = '{{deceased.last_name}}',month = '{{deceased.month_death}}',year = '{{deceased.year_death}}',url='https://kinglyrae.pythonanywhere.com/create_biography/{{deceased.id}}' )">
+                        <div class="icon">
+                            <svg width="53" height="53" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(0.75)"><path d="M0 26.5C0 11.864 11.864 0 26.5 0S53 11.864 53 26.5 41.136 53 26.5 53 0 41.136 0 26.5Z" fill="#55ACEE"></path><path d="m25.706 21.54.056.916-.927-.112c-3.373-.43-6.32-1.89-8.823-4.341l-1.223-1.217-.316.899c-.667 2.002-.24 4.117 1.15 5.539.741.786.574.898-.705.43-.445-.15-.834-.262-.87-.206-.13.131.314 1.834.666 2.508.482.936 1.465 1.853 2.54 2.395l.908.43-1.075.02c-1.038 0-1.075.018-.964.411.37 1.216 1.835 2.508 3.466 3.07l1.15.392-1.001.599a10.436 10.436 0 0 1-4.968 1.385c-.834.018-1.52.093-1.52.15 0 .187 2.261 1.234 3.578 1.646 3.948 1.217 8.637.693 12.16-1.385 2.502-1.478 5.004-4.416 6.172-7.26.63-1.516 1.26-4.286 1.26-5.614 0-.861.056-.974 1.094-2.003.612-.599 1.186-1.254 1.297-1.44.186-.356.167-.356-.778-.038-1.576.561-1.798.486-1.02-.356.575-.599 1.26-1.684 1.26-2.002 0-.056-.277.037-.592.206-.334.187-1.075.468-1.631.636l-1.001.318-.909-.617c-.5-.337-1.205-.712-1.575-.824-.946-.262-2.391-.224-3.244.075-2.317.842-3.782 3.013-3.615 5.39Z" fill="#fff"></path></svg>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card3">
+                <div class="url">URL for sharing</div>
+                <div class="invite-link">
+                    <div class="card-a" id="copy-text-b" style="font-size: 0.7rem;overflow-x: hidden;text-overflow: ellipsis;">https://kinglyrae.pythonanywhere.com/create_biography</div>
+                    <div class="card-b" id="clip-board-b" >
+                        <i class="fa-sharp fa-regular fa-clipboard"></i>
+                        <div id="copied-b">Copied!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+ <div class="new-gift-wrapper" id = "new-gift-wrapper">
+ <input type="hidden" name="" value="{{deceased.id}}" class="recipientId">
+     {% csrf_token %}
+               <div class = "gift-wrapper-container gift-tab" id = "gift-tab1">
+                    <div class="gift-card1">
+                        <span class='x-gift' onclick="showGift(event)"  ><i class="fa-solid fa-circle-xmark"></i></span>
+                    <span class = 'give-text'>Give Ribbons in Honor</span>
+                    <span class = "star-balance">
+                        <i class="fa-solid fa-ribbon"></i>
+                        <span id = "user-balance">:{{request.user.wallet.balance}}</span>
+                        </span>
+                </div>
+                <div class="gift-card2">
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/ribbon.png" alt="">
+                         <div class = "card2-stars">
+                            <i class="fa-solid fa-ribbon"></i>
+                             <span>10</span>
+                         </div>
+
+
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:30px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="Ribbon">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="10">Confirm</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/sad-candle.gif" alt="">
+                          <div class = "card2-stars">
+                            <i class="fa-solid fa-ribbon"></i>
+                             <span>50</span>
+                         </div>
+                          <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:40px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="Candle">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="50">Confirm</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift-box" onclick="showFlower()">
+                         <img  style="height: 30px;width:30px;border-radius:30px;" src="/static/images/bloom.gif" alt="">
+                          <div class = "card2-stars">
+                            <i class="fa-solid fa-ribbon"></i>
+                             <span>100</span>
+                         </div>
+                    </div>
+                    <div class="gift-box" onclick="giftModal(this)">
+                        <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/tree4.gif" alt="">
+                         <div class = "card2-stars">
+                           <i class="fa-solid fa-ribbon"></i>
+                             <span>150</span>
+                         </div>
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:30px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="Tree">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="150">Confirm</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/donate2.png" alt="">
+                          <div class = "card2-stars">
+                            <i class="fa-solid fa-ribbon"></i>
+                             <span>300</span>
+                         </div>
+
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+                                <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:40px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="Donations & Charity">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="150">Confirm</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gift-card3">
+                    <div class="balance" onclick="nextPrev(1)">Add to balance</div>
+                </div>
+               </div>
+                <div class = "gift-wrapper-container gift-flower" id = "gift-flower">
+                    <div class="gift-card1">
+                 <div class = "left-arrow" onclick="hideFlower()">
+                     <i class="fa-solid fa-arrow-left"></i>
+                     </div>
+                    <span>Send a flower</span>
+
+                </div>
+                <div class="gift-card2">
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/tulip1.gif" alt="">
+                         <div class = "card2-stars">
+                            <i class="fa-solid fa-ribbon"></i>
+                             <span>10</span>
+                         </div>
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                 <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:40px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="Tulip Flower">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="10">Confirm</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/tulip2.gif" alt="">
+                          <div class = "card2-stars">
+                             <i class="fa-solid fa-ribbon"></i>
+                             <span>50</span>
+                         </div>
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                 <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:40px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="Rose flower">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="50">Confirm</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/tulip3.gif" alt="">
+                          <div class = "card2-stars">
+                             <i class="fa-solid fa-ribbon"></i>
+                             <span>80</span>
+                         </div>
+
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                 <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:40px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="80">Confirm</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/tulip4.gif" alt="">
+                          <div class = "card2-stars">
+                             <i class="fa-solid fa-ribbon"></i>
+                             <span>100</span>
+                         </div>
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                 <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:40px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="100">Send</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift-box" onclick="giftModal(this)">
+                        <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/tulip5.gif" alt="">
+                         <div class = "card2-stars">
+                           <i class="fa-solid fa-ribbon"></i>
+                             <span>150</span>
+                         </div>
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                <div class="header">
+                                    <div class="icon"> <i class="fa-solid fa-gift"></i></div>
+                                    <input type="hidden" class="gift-type" value="">
+                                    <div class="text">
+                                         <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="150">Send</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift-box" onclick="giftModal(this)">
+                         <img class = "gift-img" style="height: 30px;width:30px;border-radius:30px;" src="/static/images/tulip6.gif" alt="">
+                          <div class = "card2-stars">
+                            <i class="fa-solid fa-ribbon"></i>
+                             <span>300</span>
+                         </div>
+                         <div class="delete-modal-container">
+                            <div class="wrapper">
+
+                                <div class="header">
+                                    <div class="icon"> <img class = "rep-img" src="" alt="" style="height: 40px;width:40px;border-radius:40px;"></div>
+                                    <input type="hidden" class="gift-type" value="">
+                                    <div class="text">
+                                        <div class="card1 confirm-text"></div>
+
+                                    </div>
+                                </div>
+                                <div class="bottom-card">
+                                    <span onclick="cancelAds(this)">Cancel</span>
+                                    <span class = "send-gift" data-gift-price="300">Send</span>
+                                </div>
+                                <div class="x-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gift-card3">
+
+                </div>
+               </div>
+
+               <form method="post" action="{% url 'purchase-stars' %}" class = "gift-tab gift-wrapper-container" id = "gift-tab2">
+                   <div class="gift-card1">
+                    <span>Add to balance </span>
+                     <div class = "left-arrow" onclick="nextPrev(-1)"><i class="fa-solid fa-arrow-left"></i></div>
+
+                </div>
+                   <div class = "explanation">
+                       <div class = "explan-items">
+                       <span>credit:</span>
+                       {{request.user.wallet.balance}}
+                       </div>
+                       <p class = "text">Ribbon let you send virtual gifts to show appreciation for the memorials you love.</p>
+                   </div>
+                   <div class = "btn-price-wrapper">
+                       <button type="submit" name="stars" value="2.00" class = "price-container">
+                       <div class = "cards">
+                           <i class="fa-solid fa-ribbon"></i>
+                           45
+                       </div>
+                       <div class = "cards">
+                           $2.00
+                       </div>
+                   </button>
+
+                    <button type="submit" name="stars" value="3.50" class = "price-container">
+                       <div class = "cards">
+                          <i class="fa-solid fa-ribbon"></i>
+                           90
+                       </div>
+                       <div class = "cards">
+                           $3.50
+                       </div>
+                   </button>
+
+                    <button type="submit" name="stars" value="5.00" class = "price-container">
+                       <div class = "cards">
+                          <i class="fa-solid fa-ribbon"></i>
+                           135
+                       </div>
+                       <div class = "cards">
+                           $5.00
+                       </div>
+                   </button>
+
+                   </div>
+               </form>
+
+            </div>
+
 </body>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 <script src="{% static 'javascript/recent-memorial.js' %}"></script>
 </html>
 

@@ -10,7 +10,7 @@
     <form action="" id="regForm" method="POST" >
         {% csrf_token %}
         <div class="header">
-            <h2>Futurism</h2>
+            <h2>FOREVER IN OUR HEARTS</h2>
             <div class="progress-container">
                 <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="left-icon"><i class="fa-solid fa-chevron-left"></i></button>
                 <div class="progress" >
@@ -19,7 +19,7 @@
                 <div class="stage" id="stage"></div>
             </div>
         </div>
-    
+
         <div class="tab life">
             <div class="card1">
                 <h2>Whose life are you memorializing?</h2>
@@ -40,13 +40,25 @@
                     <label for="">City</label>
                     {{form.location}}
                 </div>
+                 <div class="items">
+                    <label for="">Cause of death</label>
+                    {{form.death_cause}}
+                </div>
+                 <div class="items">
+                    <label for="">Relationship</label>
+                    {{form.relationship_type}}
+                </div>
+                 <div class="items">
+                    <label for="">Audience</label>
+                    {{form.audience}}
+                </div>
             </div>
             <div class="card2">
                 <button type="reset"  class="cancel">Cancel</button>
                 <button type="button" id="nextBtn" onclick="nextPrev(1)" class="next">Next Step</button>
             </div>
         </div>
-    
+
         <div class="tab born" >
             <div class="card1">
                 <h2 id="born"></h2>
@@ -89,7 +101,7 @@
                 <button type="button" id="nextBtn" onclick="nextPrev(1)">Next Step</button>
             </div>
         </div>
-    
+
         <div class="tab photo">
             <div class="card1">
                 <h2>Add photos</h2>
@@ -100,10 +112,10 @@
                    </div>
                  </div>
             </div>
-    
+
             <div class="card2">
-                <button type="submit" class="cancel">Skip for now</button>
-                <button type="submit" class="next">Add Photos</button>
+               <span></span>
+                <button type="submit" class="next">Create</button>
             </div>
         </div>
       </form>
@@ -112,27 +124,3 @@
 {% block script %}
 <script src="{% static 'javascript/memorial.js' %}"></script>
 {% endblock %}
-
-
-
-
-<div class = 'box-sender'>
-    <div class = "message-card">
-        <div class="file-wrapper">
-            <div class="file-iconX"><i class="fa-solid fa-file"></i></div>
-            <div class="file-desc">
-              <div class="title">
-                <a href="">
-                  ${filename}
-                </a>
-              </div>
-              <div class="size">1.2kb</div>
-            </div>
-          </div>
-        <div class = "text">${data.content}</div>
-        <div class = "date">
-            <span>${data.created_at}</span>
-            <span><i class="fa-solid fa-check-double"></i></span>
-        </div>
-    </div>
-</div>

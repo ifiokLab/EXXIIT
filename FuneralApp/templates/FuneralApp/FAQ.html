@@ -26,7 +26,7 @@
          </div>
         </div>
         <form class="search-bar" id="search-bar" action="{% url 'search_memorials' %}" method="get">
- 
+
          <div class="search-wrapper">
              <input type="text" name="q" id="q" placeholder="search by name, location, city">
             <!-- <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>-->
@@ -42,7 +42,7 @@
                      <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
                  </div>
              {% endif %}
- 
+
          </div>
      </header>
      <div class="notification-wrapper" id="notification-wrapper" onclick="close_not(event)">
@@ -96,8 +96,8 @@
                  <div class="texts">Login</div>
              </a>
             {% endif %}
- 
- 
+
+
          </div>
      </div>
    <div class="content-wrapper">
@@ -144,7 +144,7 @@
             </div>
         </button>
         <div class="panel">
-            <p>Anyone can create an account in honor of their loved ones, a celebrity, or simply search for an already created memorial page and participate by writing a tribute, commenting, or contributing using our memorial gift features to honor a loved one.  
+            <p>Anyone can create an account in honor of their loved ones, a celebrity, or simply search for an already created memorial page and participate by writing a tribute, commenting, or contributing using our memorial gift features to honor a loved one.
 
                 Any memorial page that has not received any public interactions other than your account will be purged after 3 to 7 days of creation. To avoid this, be sure to share any memorial pages you create in your social media groups to garner support and interactions to validate your page.</p>
         </div>
@@ -157,7 +157,7 @@
             </div>
         </button>
         <div class="panel">
-            <p>You may earn a verified badge based on the number of memorial pages you have created in the lifespan of your account and how many others have contributed to those pages you have created, either by commenting, adding tributes, or through memorial gifts. Our system's algorithm determines and identifies your popularity and the honors you bestow on others. Lastly, the system also verifies the active followers and the interactions and reactions you have received on your personal page connected to any memorial pages created. 
+            <p>You may earn a verified badge based on the number of memorial pages you have created in the lifespan of your account and how many others have contributed to those pages you have created, either by commenting, adding tributes, or through memorial gifts. Our system's algorithm determines and identifies your popularity and the honors you bestow on others. Lastly, the system also verifies the active followers and the interactions and reactions you have received on your personal page connected to any memorial pages created.
             </p>
         </div>
 
@@ -195,27 +195,31 @@
    <footer>
     <div class="footer-container">
         <div class="image-wrapper">
-            <img class="items first" src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\logo.png" alt="">
-            <img class="top" src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\default.png" alt="">
-            <img class="items" src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\logo.png" alt="">
+
+             <img class="items first" src="{% static 'images/Customer-Service3.jpg' %}" alt="">
+            <img class="top" src="{% static 'images/customer-care1.jpg' %}">
+            <img class="items" src="{% static 'images/customer-care2.jpg' %}" alt="">
         </div>
         <h1>Still have questions?</h1>
         <p>can't find the answer you are looking for? please chat to our friendly team.</p>
     </div>
-   
+
    </footer>
 
    <div class="search-modal" id="search-modal" onclick="close_search(event)"></div>
-  
+
    <div class="fixed-nav">
-       <a href="{% url 'home' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
-       <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
-       <a href="{% url 'recent_memorial' %}" class="btns" title="recent-memorial"><i class="fa-solid fa-compass"></i></a>
-       <a href="{% url 'create_memorial' %}" class="btns" title="create memorial"><i class="fa-solid fa-circle-plus"></i></a>
-       <a href="#" class="btns profile">
-           <div>IU</div>
-       </a>
-   </div>
+        <a href="{% url 'recent_memorial' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
+        <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
+         <a href="{% url 'faq' %}" class="btns" title="FAQ"><i class="fa-solid fa-circle-question"></i></a>
+        <a href="{% url 'about' %}" class="btns" title="About"><i class="fa-solid fa-compass"></i></a>
+        <a href="{% url 'create_memorial' %}" class="btns" title="create memorial"><i class="fa-solid fa-circle-plus"></i></a>
+        {% if user.is_authenticated %}
+        <a href="#" class="btns profile">
+            <div>{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
+        </a>
+        {% endif %}
+    </div>
  <form action="{% url 'search_memorials' %}" method="get" class="index-form" id="index-form">
   <div class="wrapper">
    <div class="search-container">

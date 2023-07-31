@@ -14,13 +14,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    
+
     <header>
-        <div class="logo"> <a style="text-decoration: none;color:white;" href="{% url 'home' %}">Futurism</a></div>
+        <div class="logo"> <a style="text-decoration: none;color:white;" href="{% url 'recent_memorial' %}">
+              <img style="height: 70px;width:auto" src = '{% static 'images/logo.png' %}'>
+        </a></div>
         <div class="card2">
-            <div class="notification" onclick="notification()">
-                <i class="fa-regular fa-bell"></i>
-            </div>
+             {% if user.is_authenticated %}
+                 <div class="notification" onclick="notification()">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+             {% endif %}
             <div class="profile" onclick="profile()">
                 <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
             </div>
@@ -54,9 +58,9 @@
                 <div class="texts">Account Settings</div>
             </a>
             {% endif %}
-            <a href="" class="items">
+            <a href="{% url 'about' %}" class="items">
                 <div class="icons"><i class="fa-solid fa-circle-question"></i></div>
-                <div class="texts">Help</div>
+                <div class="texts">About</div>
             </a>
             <a href="" class="items">
                 <div class="icons"><i class="fa-solid fa-file-invoice"></i></div>
@@ -66,10 +70,17 @@
                 <div class="icons"><i class="fa-solid fa-lock-keyhole"></i></div>
                 <div class="texts">Privacy policy</div>
             </a>
-            <a href="{% url 'logout' %}" class="items">
+            {% if user.is_authenticated %}
+            <a href="{% url 'account_logout' %}" class="items">
                 <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
                 <div class="texts">Logout</div>
             </a>
+            {% else %}
+            <a href="{% url 'account_login' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                <div class="texts">Login</div>
+            </a>
+            {% endif %}
 
         </div>
     </div>
@@ -88,17 +99,17 @@
                     <a style="border-radius: 50px;" href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>
                      {% else %}
                      <a href="{% url 'create_memorial' %}">Create Memorial</a>
-                    
+
                      {% endif %}
                  </div>
-                 
+
              </div>
              <div class="card2">
                  <div class="mem-card">
                      <button>Memorials</button>
                  </div>
                  {% for items in data %}
-                 <div class="mem-snippet">
+                 <div  class="mem-snippet">
                      <div class="shaded"></div>
                      <div class="box">
                          <div class="card1">
@@ -108,8 +119,8 @@
                          </div>
                          <div class="card2" onclick="menu_share({{items.id}})">
                              <i class="fa-solid fa-ellipsis-vertical"></i>
-                             
-                            
+
+
                          </div>
                      </div>
                      <div class="menu-share" id="menu-share-{{items.id}}">
@@ -137,8 +148,8 @@
                             </div>
                             <div class="card2" onclick="menu_share({{memorials.id}})">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
-                                
-                            
+
+
                             </div>
                         </div>
                         <div class="menu-share" id="menu-share-{{memorials.id}}">
@@ -155,9 +166,9 @@
                     <div class="modal" id="modal-{{memorials.id}}" onclick="menu_share({{memorials.id}})"></div>
                  {% endif %}
              </div>
-            
+
         </div>
-       
+
      </div>
 
 </body>
