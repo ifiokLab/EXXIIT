@@ -1,0 +1,419 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all .2s linear;
+   
+}
+i{
+    cursor: pointer;
+}
+
+
+html,body {
+    overflow-x: hidden;
+    margin: 0;
+}
+body{
+    font-family: 'Open Sans',sans-serif;
+    color: #230c22;
+    background-color: #FFFFFF;
+    transition-property: background-color;
+    line-height: 1.5;
+    transition-duration: 200ms;
+    min-height: 100vh;
+    font-size:  62.5%;
+    position: relative;
+    
+}
+
+.form-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('/static/images/CreateMemorialBackground.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 130px 0 0 0;
+    padding-bottom: 70px;
+   
+}
+
+form{
+    border-radius: 8px;
+    width: 400px;
+    background-color: white;
+    padding: 12px 30px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header h2{
+    font-size: 30px;
+    font-family: 'Unna', serif;
+    font-weight: 600;
+    color: #3a183f;
+    margin: 8px 0;
+}
+.header .progress-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.progress-container .left-icon{
+    text-align: center;
+    padding: 5px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background-color: transparent;
+    border: transparent;
+}
+
+.progress-container .progress{
+    width: 120px;
+    background-size: 1.5rem 1.5rem;
+    animation: 4s linear 0s infinite normal none running animation-1wc9ho6;
+    border-radius: 2.5px;
+}
+
+
+.progress-container .stage{
+    color: #3a183f;
+    font-size: 0.875rem;
+    font-weight: 400;
+    font-family: 'Open Sans',sans-serif;
+}
+
+.life{
+    margin: 12px 0;
+}
+
+.life .card1 h2{
+    font-family: 'Unna',serif;
+    font-weight: 700;
+    color: #3a183f;
+    font-size: 1.6rem;
+    text-align: center;
+    margin: 0;
+    line-height: 1.2;
+}
+.life .card1 .items{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0;
+}
+.life .card1 .items label{
+    font-size:  1rem;
+    font-weight: 500;
+    margin: 0.35rem 0;
+    transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+    transition-duration: 200ms;
+    text-align: start;
+    opacity: 1;
+    color: #3a183f;
+}
+.life .card1 .items input{
+    border: solid #dfe1e6 1px;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition-property: 200ms;
+    transition-duration: 200ms;
+    font-size: 1rem;
+    outline: transparent;
+   color: #3c3173;
+    cursor: pointer;
+}
+.life .card1 .items input:focus{
+    border: transparent;
+    outline: solid  #3c3173 2px;
+    box-shadow: inset 0 0 0 1px #bfc4cd;
+}
+
+.life .card2{
+    display: flex;
+    margin-top:20px;
+}
+.life .card2 button{
+    flex-grow: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    font-weight: 700;
+    border: transparent;
+    cursor: pointer;
+    font-family:  'Open Sans',sans-serif;
+    transition-duration: 200ms;
+    transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+}
+.life .card2 .cancel{
+    margin-right: 10px;
+    background-color: rgb(226, 229, 232);
+    color: #230c22;
+}
+
+.life .card2 .cancel:hover{
+   background-color: rgb(190, 196, 203);
+}
+
+.life .card2 .next{
+    background-color: #3a183f;
+    color: #FFFFFF;
+   
+}
+.life .card2 .next:hover{
+    background-color: #230c22;
+}
+
+
+
+.born{
+    margin: 12px 0;
+}
+
+.born .card1 h2{
+    font-family: 'Unna',serif;
+    font-weight: 700;
+    color: #3a183f;
+    font-size: 1.6rem;
+    text-align: center;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.born .card1 .box-card{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+
+.born .card1 .box-card .box{
+    width: 32%;  
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   
+}
+
+.born .items{
+    margin: 16px 0;
+}
+.born .items .title{
+    text-align: start;
+    font-size:1rem;
+    margin: 0.5rem 0;
+    font-weight: 500;
+    transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+    transition-duration: 200ms;
+    opacity: 1;
+    color: #3a183f;
+}
+.born .card1 .box-card .box label{
+    text-align: start;
+    font-size: 0.875rem;
+    margin: 0.5rem;
+    font-weight: 500;
+    transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+    transition-duration: 200ms;
+    opacity: 1;
+   color: rgb(116, 129, 145);;
+}
+
+.born .card1 .box-card .box select,.born .card1 .box-card .box input{
+    border: solid #dfe1e6 1px;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition-property: 200ms;
+    transition-duration: 200ms;
+    font-size: 1rem;
+    outline: transparent;
+   color: #3c3173;
+    cursor: pointer;
+}
+
+.born .card1 .box-card .box select:focus,.born .card1 .box-card .box input:focus{
+    border: transparent;
+    outline: solid  #3c3173 2px;
+    box-shadow: inset 0 0 0 1px #bfc4cd;
+}
+
+
+.born .card2{
+    display: flex;
+    margin-top:20px;
+}
+.born .card2 button{
+    flex-grow: 1;
+    padding: 14px;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    font-weight: 700;
+    border: transparent;
+    cursor: pointer;
+    font-family:  'Open Sans',sans-serif;
+    transition-duration: 200ms;
+     background-color: #3a183f;
+    color: #FFFFFF;
+    transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+}
+
+
+.born .card2 button:hover{
+    background-color: #230c22;
+}
+
+
+
+.photo{
+    margin: 12px 0;
+}
+.photo .card1 h2{
+    font-size: 30px;
+    font-family: 'Unna', serif;
+    font-weight: 600;
+    color: #3a183f;
+    margin: 8px 0;
+    text-align: center;
+}
+
+.photo .card1 .items .title{
+    text-align: center;
+    font-size:1rem;
+    margin: 0.5rem 0;
+    font-weight: 500;
+    transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+    transition-duration: 200ms;
+    opacity: 1;
+    color: #3a183f;
+    font-family: 'Unna',serif;
+}
+
+.photo .card-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.9rem 0;
+}
+.photo .card-img img{
+    color: transparent;
+    max-height: 33vh;
+    object-fit: contain;
+    cursor: pointer;
+    max-width: 100%;
+    height: auto;
+    
+}
+
+
+
+
+
+
+.photo .card2{
+    display: flex;
+    margin-top:20px;
+}
+.photo .card2 button{
+    flex-grow: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    font-weight: 700;
+    border: transparent;
+    cursor: pointer;
+    font-family:  'Open Sans',sans-serif;
+    transition-duration: 200ms;
+    transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+}
+.photo .card2 .cancel{
+    margin-right: 10px;
+    background-color: rgb(226, 229, 232);
+    color: #230c22;
+}
+
+.photo .card2 .cancel:hover{
+   background-color: rgb(190, 196, 203);
+}
+
+.photo .card2 .next{
+     background-color: #3a183f;
+    color: #FFFFFF;
+}
+.photo .card2 .next:hover{
+    background-color: #230c22;
+}
+.tab{
+    display: none;
+}
+
+
+
+/* IE10 */
+progress {
+    color:#3a183f;
+    width: 120px;
+    height: 5px;
+}
+
+/* Firefox */
+progress::-moz-progress-bar {
+    background:#3a183f;
+   
+    width: 200px;
+    height: 5px;
+}
+
+progress::-webkit-progress-value {
+    background:#3a183f;
+   
+    width: 200px;
+    height:5px;
+}
+
+/* Polyfill */
+progress[aria-valuenow]:before {
+    background:#3a183f;
+   
+    width: 120px;
+    height: 9px;
+}
+
+progress {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 9px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress[value]::-webkit-progress-value {
+    border-radius: 9px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.invalid{
+    background-color: #FEB2B2;
+}

@@ -1,0 +1,109 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  {% endblock %}
+{% block content %}
+
+
+
+<div class="body-wrapper">
+   
+  <div class="container">
+     
+      <div class="header">
+          <div class="logo">Futurism</div>
+          <h1>Welcome</h1>
+          <p class="text">Log in to access After Memorials</p>
+      </div>
+ 
+      <form action="{% url 'account_login' %}" class="body" method="POST">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+           <p class="error">{{form.non_field_errors}}</p>
+      
+         {% endif %}
+          <div class="input-card">
+             {{form.login}}
+              <div class="tool-tip" id="email">Email address</div>
+          </div>
+          <div class="input-card">
+             {{form.password}}
+             <div class="eye" onclick="show()"> <i id="eye" class="fa-regular fa-eye"></i></div>
+              <div class="tool-tip2" id="password">Password</div>
+          </div>
+          {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+
+          <div class="continue-card">
+             <a class="button secondaryAction forgot" href="{% url 'account_reset_password' %}">
+             <p> {% trans "Forgot Password?" %}</p>
+            </a>
+             <button type="submit">Continue</button>
+             <div class="account">
+              Don't have an account? <a href="{{ signup_url }}">Sign up</a>
+             </div>
+          </div>
+          <div class="or-card">
+            <div class="border"></div>
+            <div class="text">OR</div>
+          </div>
+         
+      </form>
+        <div class="auth-card">
+          {% get_providers as socialaccount_providers %}
+
+          {% if socialaccount_providers %}
+          <div class="card">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </div>
+          {% endif %}
+        
+        </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="card1">
+      <div class="wrapper">
+      <p class="logo">Futurism</p>
+      <p class="chakra-text">©2023</p>
+      <div class="icon-card">
+          <a href="" class="items"><i class="fa-brands fa-square-facebook"></i></a>
+          <a href="" class="items"><i class="fa-brands fa-instagram"></i></a>
+          <a href="" class="items"><i class="fa-brands fa-twitter"></i></a>
+          <a href="" class="items"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      </div>
+  </div>
+  <div class="card2">
+     <div class="wrapper">
+          <div class="items">
+              <a href="">Blog</a>
+          </div>
+          <div class="items">
+              <a href="">Privacy</a>
+          </div>
+          <div class="items">
+              <a href="">Terms</a>
+          </div>
+          <div class="items">
+              <a href="">Help</a>
+          </div>
+     </div>
+  </div>
+</footer>
+<div id="overlay" onclick="Modal()"></div>
+
+
+
+{% endblock %}
+{% block js %}
+<script src="{% static 'javascript/login.js' %}"></script>
+{% endblock %}

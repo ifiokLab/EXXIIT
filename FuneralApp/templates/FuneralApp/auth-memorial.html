@@ -1,0 +1,169 @@
+
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'css/recent-memorial.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unna&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <header>
+       <div class="card1">
+        <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'home' %}">Futurism</a></div>
+        <div class="create" id="create">
+            <a class="link" href="{% url 'create_memorial' %}">Create</a>
+            <a href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>
+        </div>
+       </div>
+       <form class="search-bar" id="search-bar" action="{% url 'search_memorials' %}" method="get">
+        
+        <div class="search-wrapper">
+            <input type="text" name="q" id="q" placeholder="search by name, location, city">
+            <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        </div>
+       </form>
+        <div class="card2">
+            <div id="search-btn" class="search-btn" onclick="show_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="notification" onclick="notification()">
+                <i class="fa-regular fa-bell"></i>
+            </div>
+            <div class="profile" onclick="profile()">
+                <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
+            </div>
+        </div>
+    </header>
+    <div class="notification-wrapper" id="notification-wrapper" onclick="close_not(event)">
+        <div class="not-box" >
+            <div class="header">
+                <div class="title">Notifications</div>
+                <button onclick="notification()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="body">
+                <div class="empty">You have no notifications</div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-card" id="profile-card">
+        <div class="header">Signed in as {{request.user}}</div>
+        <div class="body">
+            <a href="{% url 'memorials' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-house"></i></div>
+                <div class="texts">Your Memorials</div>
+            </a>
+            <a href="{% url 'recent_memorial' %}" class="items">
+                <div class="icons"><i class="fa-sharp fa-solid fa-newspaper"></i></div>
+                <div class="texts">Recent Memorials</div>
+            </a>
+            {% if profile %}
+            <a href="{% url 'account' request.user.id %}" class="items">
+                <div class="icons"><i class="fa-solid fa-circle-user"></i></div>
+                <div class="texts">Account Settings</div>
+            </a>
+            {% endif %}
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-circle-question"></i></div>
+                <div class="texts">Help</div>
+            </a>
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="texts">Terms of service</div>
+            </a>
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-lock-keyhole"></i></div>
+                <div class="texts">Privacy policy</div>
+            </a>
+           {% if request.user.is_authenticated %}
+           <a href="{% url 'account_logout' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                <div class="texts">Logout</div>
+            </a>
+            {% else %}
+            <a href="{% url 'account_login' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                <div class="texts">Login</div>
+            </a>
+           {% endif %}
+
+
+        </div>
+    </div>
+    
+    <div class="body-container">
+        <h1>Recent Memorials</h1>
+        <div class="grid-container">
+           {% for item in data %}
+           {% if item.cover_photo %}
+            <div class="card">
+                <img class='grid-item grid-item-1' src="{{item.cover_photo.url}}" alt=''>
+                <div class="text-wrapper">
+                    <div class="name">{{item.deceased.first_name}} {{item.deceased.last_name}}</div>
+                    <div class="date">{{item.deceased.month_birth}} {{item.deceased.year_birth}} - {{item.deceased.month_death}} {{item.deceased.year_death}}</div>
+                    <div class="text">In loving memory of {{item.deceased.first_name}} {{item.deceased.last_name}}, who passed away on  {{item.deceased.day_death}},{{item.deceased.month_death}} {{item.deceased.year_death}} </div>
+                    <a class="visit" href="{% url 'create_biography' item.deceased.id %}">Visit Memorial</a>
+                </div>
+            </div>
+           {% endif %}
+           {% endfor %}
+        </div>   
+           
+    </div>
+   <div class="search-modal" id="search-modal" onclick="close_search(event)"></div>
+  
+   <div class="fixed-nav">
+       <a href="{% url 'home' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
+       <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
+       <a href="{% url 'recent_memorial' %}" class="btns" title="recent-memorial"><i class="fa-solid fa-compass"></i></a>
+       <a href="{% url 'create_memorial' %}" class="btns" title="create memorial"><i class="fa-solid fa-circle-plus"></i></a>
+       <a href="#" class="btns profile">
+           <div>IU</div>
+       </a>
+   </div>
+ <form action="{% url 'search_memorials' %}" method="get" class="index-form" id="index-form">
+  <div class="wrapper">
+   <div class="search-container">
+       <input type="text" name="q"  placeholder="search by name, location, city">
+       <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+   </div>
+   <div class="close" onclick="close_searchx()"><i class="fa-solid fa-circle-xmark"></i></div>
+  </div>
+ </form>
+
+
+ <div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="box1">
+            <svg height="50" viewBox="-3 -3 82 82" width="50" style="display: block;"><title>Pinterest logo</title><circle cx="38" cy="38" fill="white" r="40"></circle><path d="M27.5 71c3.3 1 6.7 1.6 10.3 1.6C57 72.6 72.6 57 72.6 37.8 72.6 18.6 57 3 37.8 3 18.6 3 3 18.6 3 37.8c0 14.8 9.3 27.5 22.4 32.5-.3-2.7-.6-7.2 0-10.3l4-17.2s-1-2-1-5.2c0-4.8 3-8.4 6.4-8.4 3 0 4.4 2.2 4.4 5 0 3-2 7.3-3 11.4C35.6 49 38 52 41.5 52c6.2 0 11-6.6 11-16 0-8.3-6-14-14.6-14-9.8 0-15.6 7.3-15.6 15 0 3 1 6 2.6 8 .3.2.3.5.2 1l-1 3.8c0 .6-.4.8-1 .4-4.4-2-7-8.3-7-13.4 0-11 7.8-21 22.8-21 12 0 21.3 8.6 21.3 20 0 12-7.4 21.6-18 21.6-3.4 0-6.7-1.8-7.8-4L32 61.7c-.8 3-3 7-4.5 9.4z" fill="#e60023" fill-rule="evenodd"></path></svg>
+            <h1>Welcome to Futurism</h1>
+        </div>
+        <div class="box2">
+            <a href="{% url 'account_signup' %}" class="items email">Continue with email</a>
+            <a href="{% provider_login_url 'twitter' %}" class="items twitter">
+               <span class="logo"><i class="fa-brands fa-twitter"></i></span>
+               <span> Continue with Twitter</span>
+            </a>
+            <a href="{% provider_login_url 'google' %}" class="items google">
+                <span class="logo"><i class="fa-brands fa-google"></i></span>
+                <span> Continue with Google</span>
+             </a>
+
+             <p >Already have an account? <a style="text-decoration: none;color:white;" href="{% url 'account_login' %}">Login</a></p>
+
+        </div>
+    </div>
+ </div>
+</body>
+<script src="{% static 'javascript/recent-memorial.js' %}"></script>
+</html>
+

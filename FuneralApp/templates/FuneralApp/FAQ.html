@@ -1,0 +1,230 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ</title>
+    <link rel="stylesheet" href="{% static 'css/FAQ.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <div class="card1">
+         <div class="logo" id="logo"> <a style="text-decoration: none;color:white;" href="{% url 'recent_memorial' %}">
+               <img style="height: 70px;width:auto" src = '{% static 'images/logo.png' %}'>
+         </a></div>
+         <div class="create" id="create">
+             <a class="link" href="{% url 'create_memorial' %}">Create</a>
+             <!--<a href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>-->
+         </div>
+        </div>
+        <form class="search-bar" id="search-bar" action="{% url 'search_memorials' %}" method="get">
+ 
+         <div class="search-wrapper">
+             <input type="text" name="q" id="q" placeholder="search by name, location, city">
+            <!-- <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>-->
+         </div>
+        </form>
+         <div class="card2">
+             <div id="search-btn" class="search-btn" onclick="show_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
+             {% if user.is_authenticated %}
+                 <div class="notification" onclick="notification()">
+                     <i class="fa-regular fa-bell"></i>
+                 </div>
+                  <div class="profile" onclick="profile()">
+                     <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
+                 </div>
+             {% endif %}
+ 
+         </div>
+     </header>
+     <div class="notification-wrapper" id="notification-wrapper" onclick="close_not(event)">
+         <div class="not-box" >
+             <div class="header">
+                 <div class="title">Notifications</div>
+                 <button onclick="notification()"><i class="fa-solid fa-xmark"></i></button>
+             </div>
+             <div class="body">
+                 <div class="empty">You have no notifications</div>
+             </div>
+         </div>
+     </div>
+     <div class="profile-card" id="profile-card">
+         <div class="header">Signed in as {{request.user}}</div>
+         <div class="body">
+             <a href="{% url 'memorials' %}" class="items">
+                 <div class="icons"><i class="fa-solid fa-house"></i></div>
+                 <div class="texts">Your Memorials</div>
+             </a>
+             <a href="{% url 'recent_memorial' %}" class="items">
+                 <div class="icons"><i class="fa-sharp fa-solid fa-newspaper"></i></div>
+                 <div class="texts">Recent Memorials</div>
+             </a>
+             {% if profile %}
+             <a href="{% url 'account' request.user.id %}" class="items">
+                 <div class="icons"><i class="fa-solid fa-circle-user"></i></div>
+                 <div class="texts">Account Settings</div>
+             </a>
+             {% endif %}
+             <a href="#" class="items">
+                 <div class="icons"><i class="fa-solid fa-circle-question"></i></div>
+                 <div class="texts">About</div>
+             </a>
+             <a href="" class="items">
+                 <div class="icons"><i class="fa-solid fa-file-invoice"></i></div>
+                 <div class="texts">Terms of service</div>
+             </a>
+             <a href="" class="items">
+                 <div class="icons"><i class="fa-solid fa-lock-keyhole"></i></div>
+                 <div class="texts">Privacy policy</div>
+             </a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'account_logout' %}" class="items">
+                 <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                 <div class="texts">Logout</div>
+             </a>
+             {% else %}
+             <a href="{% url 'account_login' %}" class="items">
+                 <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                 <div class="texts">Login</div>
+             </a>
+            {% endif %}
+ 
+ 
+         </div>
+     </div>
+   <div class="content-wrapper">
+    <div class="faq-container">
+        <div class="title">FAQS</div>
+        <h1>Frequently asked questions</h1>
+        <p>Have questions? We're here to help.</p>
+    </div>
+    <div class="accordion-container">
+        <button class="accordion">
+            <div class="text">WHAT IS EXXiiT ? </div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p>EXXiiT is a platform to help you create lasting memories in honor of your loved ones. Our website or app helps you plan, organize, and execute your loved ones final rites. The legacy feature helps you create online memorials to virtually participate, attend, or contribute to a loved one's memorial.</p>
+        </div>
+
+        <button class="accordion">
+            <div class="text">HOW / WHY SUPPORT?</div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p>Anyone can donate money in lieu of lighting a candle, giving a flower, watering a plant, sending a sympathy card, or donating to a partner charity to demonstrate support so that their legacy may serve as a source of light and inspiration for those who knew them in life and those who never had the chance. As a token of our gratitude, we will have a physical tree planted in their honor. Your contribution will ensure that our app and/or website remain free for other bereaved families.</p>
+        </div>
+
+        <button class="accordion">
+            <div class="text">WHY SHOULD YOU LIKE, COMMENT, OR SHARE? </div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p>Your participation is essential. By liking, commenting, writing a short tribute, or simply sharing the post with other loved ones, you are ensuring the soul of your loved one's life keeps on beaming and inspiring others who may come across it. Their life and story may inspire others. You never know whose life you may inspire or change with simple words from your heart.</p>
+        </div>
+
+        <button class="accordion">
+            <div class="text">CAN ANYONE CREATE AN ACCOUNT?</div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p>Anyone can create an account in honor of their loved ones, a celebrity, or simply search for an already created memorial page and participate by writing a tribute, commenting, or contributing using our memorial gift features to honor a loved one.  
+
+                Any memorial page that has not received any public interactions other than your account will be purged after 3 to 7 days of creation. To avoid this, be sure to share any memorial pages you create in your social media groups to garner support and interactions to validate your page.</p>
+        </div>
+
+
+        <button class="accordion">
+            <div class="text">HOW DO I EARN A VERIFED BADGE?</div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p>You may earn a verified badge based on the number of memorial pages you have created in the lifespan of your account and how many others have contributed to those pages you have created, either by commenting, adding tributes, or through memorial gifts. Our system's algorithm determines and identifies your popularity and the honors you bestow on others. Lastly, the system also verifies the active followers and the interactions and reactions you have received on your personal page connected to any memorial pages created. 
+            </p>
+        </div>
+
+        <button class="accordion">
+            <div class="text">HOW MUCH DOES IT COST TO CREATE AN ACCOUNT? </div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p> It costs you nothing. It’s FREE. </p>
+        </div>
+
+        <button class="accordion">
+            <div class="text">CAN I PARTICIPATE WITHOUT AN ACCOUNT? </div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p> You are able to view any pages shared with you, but you will not be able to contribute or interact. You may, however, simply login with any social media account you already have or simply create an account in 3 seconds.</p>
+        </div>
+
+        <button class="accordion">
+            <div class="text">CAN I COLLABORATE ON AN ALREADY CREATED MEMORIAL PAGE? </div>
+            <div class="icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+        </button>
+        <div class="panel">
+            <p>Yes, you may. You may contact the host of such a page through a follow on their page or a request for an invite. They must, however, approve your request for you to collaborate on such a page. Collaboration gives you the ability to ADD PHOTOS, ADD / EDIT BIOGRAPHY / ADD AN UPCOMING EVENTS etc</p>
+        </div>
+    </div>
+   </div>
+   <footer>
+    <div class="footer-container">
+        <div class="image-wrapper">
+            <img class="items first" src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\logo.png" alt="">
+            <img class="top" src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\default.png" alt="">
+            <img class="items" src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\logo.png" alt="">
+        </div>
+        <h1>Still have questions?</h1>
+        <p>can't find the answer you are looking for? please chat to our friendly team.</p>
+    </div>
+   
+   </footer>
+
+   <div class="search-modal" id="search-modal" onclick="close_search(event)"></div>
+  
+   <div class="fixed-nav">
+       <a href="{% url 'home' %}" class="btns" title="Home"><i class="fa-solid fa-house"></i></a>
+       <div class="btns" title="Search" onclick="open_search()"><i class="fa-solid fa-magnifying-glass"></i></div>
+       <a href="{% url 'recent_memorial' %}" class="btns" title="recent-memorial"><i class="fa-solid fa-compass"></i></a>
+       <a href="{% url 'create_memorial' %}" class="btns" title="create memorial"><i class="fa-solid fa-circle-plus"></i></a>
+       <a href="#" class="btns profile">
+           <div>IU</div>
+       </a>
+   </div>
+ <form action="{% url 'search_memorials' %}" method="get" class="index-form" id="index-form">
+  <div class="wrapper">
+   <div class="search-container">
+       <input type="text" name="q"  placeholder="search by name, location, city">
+       <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+   </div>
+   <div class="close" onclick="close_searchx()"><i class="fa-solid fa-circle-xmark"></i></div>
+  </div>
+ </form>
+</body>
+<script src="{% static 'javascript/FAQ.js' %}"></script>
+</html>

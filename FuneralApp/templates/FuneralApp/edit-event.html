@@ -1,0 +1,118 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create-Photos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/edit-event.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unna&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+    
+</style>
+<body >
+    {% if messages %}
+    {% for message in messages %}
+    <div id="messages">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <div class="photo-container">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="header">
+                <div class="title">{{deceased.first_name}}'s {{event.get_celebration_type_display}}</div>
+                <a href="" class="btn-x" ><i class="fa-solid fa-xmark"></i></a>
+            </div>
+            <div class="photo-wrapper">
+                <div class="container-a">
+                    <h1 class="meaning">{{event.get_celebration_type_display}}</h1>
+
+                    {% if EventForm.non_form_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in EventForm.non_form_errors %}
+                            <h1>{{ error }}</h1>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                
+                    {% for form in EventForm %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.errors %}
+                                {{ error }}
+                                <h1>{{form.errors}}</h1>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <!-- display the form fields here -->
+                    {% endfor %}
+                    <div id="book-formset">
+                        <div  class="event-container" >
+                            <div class="title">Edit Event</div>  
+                            <input type="hidden" name="deceased" value="{{deceased.id}}">
+                            <input type="hidden" name="user" value="{{request.user.id}}">
+                           
+                            <div class="event-card">
+                                <div class="label">Ceremony type</div>
+                                {{EventForm.celebration_type}}
+                            </div>
+                           
+                            <div class="event-card">
+                                <div class="label">Description</div>
+                                <!--<textarea name="" id="" cols="30" rows="5" autofocus></textarea>-->
+                                {{EventForm.description}}
+                            </div>
+                        
+                            <div class="event-card">
+                                <div class="label">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                    Start date & time
+                                </div>
+                                {{EventForm.date}}
+                            </div>
+                            <div class="event-card">
+                                <div class="label">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    Location
+                                </div>
+                                {{EventForm.location}}
+                           
+                            </div>
+                        
+                            <div class="event-card">
+                                <div class="label">
+                                    <i class="fa-solid fa-video"></i>
+                                    Streaming Link(Optional)
+                                </div>
+                                {{EventForm.streaming_link}}
+                            </div>
+                        
+                           
+                            
+                        </div>
+                       
+                    </div>
+
+
+
+                 
+                    
+                </div>
+            </div>
+    
+            <div class="footer" >
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+   
+</body>
+<script src="{% static 'javascript/edit-event.js' %}"></script>
+</html>

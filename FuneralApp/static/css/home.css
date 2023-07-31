@@ -1,0 +1,374 @@
+.body-wrapper{
+    margin: 60px 0;
+ }
+ .hero-tab{
+     padding: 20px 0 20px 7vw;
+     display: flex;
+     justify-content: space-between;
+     flex-direction: column;
+     position: relative;
+     top: 76px;
+ 
+ }
+ 
+ .hero-tab .card1{
+     width: auto;
+     max-width: 36rem;;
+     margin-top: 0px;
+     position: relative;
+     z-index: 1;
+ 
+ 
+ }
+ 
+ .hero-tab .card2{
+     max-width: 100%;
+     max-height: 75vh;
+     object-fit:  contain;
+     margin: 0;
+     padding: 0;
+ 
+ }
+ 
+ .hero-tab .card1 h2{
+     font-size: 2.25rem;
+     margin-bottom: 1.5rem;
+   color: #3a183f;
+     font-weight: 700;
+     line-height: 1.2;
+     font-family: 'Unna', serif;
+ 
+ }
+ 
+ .hero-tab .card1 .chakra-text{
+     margin-bottom: 2rem;
+     font-size: 1.125rem;
+     color: #3a183f;
+ }
+ .hero-tab .card1 .chakra-stack{
+     background-color: #3a183f;
+     color: #FFFFFF;
+     border-radius:  0.375rem;
+     width: 200px;
+ 
+ 
+ }
+ .hero-tab .card1 .chakra-stack:hover{
+   background-color: #230c22;
+ 
+ }
+ .hero-tab .card1 .chakra-stack a{
+    width: 100%;
+    display: flex;
+    padding: 9px;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 1.125rem;
+    text-decoration: none;
+    font-weight: bold;
+ }
+ 
+ .social-tab{
+     margin-top: 160px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+ }
+ .social-tab .card1{
+     text-align: center;
+     width: 86vw;
+ }
+ .social-tab .card2{
+     height: 50vw;
+     max-height: 60vh;
+     margin: 30px;
+ }
+ .social-tab .card2 img{
+     height: 100%;
+     max-width: auto;
+ }
+ .social-tab .card1 h2{
+     font-family: 'Unna',serif;
+     font-size: 2.25rem;
+     color: #3a183f;
+     margin-bottom: 2rem;
+     font-weight: 700;
+ }
+ .social-tab .card1 p{
+     font-size: 1.125rem;
+     margin-bottom: 2rem;
+ }
+ 
+ .after-glow{
+     padding: 8vh 8vw;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
+ 
+ 
+ 
+ .after-glow .card1 p{
+     font-size: 1.35rem;
+     font-family: 'Unna',serif;
+     font-weight: 700;
+     color: #3a183f;
+     line-height: 1.2;
+     text-align: center;
+ 
+ }
+ .after-glow .card2{
+     display: flex;
+     flex-direction: column;
+     gap: 0;
+ 
+ }
+ .after-glow .card2 h3{
+     font-family: 'Unna',serif;
+     font-weight: 700;
+     line-height: 1.2;
+     font-size: 1.5rem;
+     margin-bottom:  1rem;
+     color: #3a183f;
+ }
+ .after-glow .card2 p{
+     font-size: 1rem;
+     color: #3a183f;
+ 
+ }
+ 
+ 
+ .slide-container{
+     margin: 5vh 18vw;
+     position: relative;
+     padding: 50px 0;
+ }
+ .slide-container .wrapper{
+     position: absolute;
+     top: 0;left: 0;right: 0;bottom: 0;
+ }
+ .slide-container .wrapper .icon-left, .slide-container .wrapper .icon-right{
+     position:absolute;
+     top: 40%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 55px;
+     width: 55px;
+     font-size: 40px;
+     border-radius: 50px;
+     color: rgb(241, 242, 243);
+     animation-iteration-count: infinite;
+     animation-timing-function: linear;
+     cursor: pointer;
+ }
+ .slide-container .wrapper .icon-left:hover,.slide-container .wrapper .icon-right:hover{
+     background-color: rgb(220, 220, 220,0.1);
+ }
+ .slide-container .wrapper .icon-left{
+     left: -35px;
+ 
+ }
+ .slide-container .wrapper .icon-right{
+     right: -35px;
+ }
+ .slide-container .text{
+     font-size: 1.3rem;
+     font-family: 'Unna',serif;
+     line-height: 1.375;
+     color: rgb(241, 242, 243);
+     font-weight: 500;
+     margin-bottom: 2rem;
+ }
+ .slide-container .name-card{
+     color: rgb(241, 242, 243);
+     display: flex;
+     align-items: center;
+ }
+ .slide-container .name-card p{
+     padding: 0;
+     margin: 0;
+ }
+ .slide-container .name-card .city{
+     font-size: 1rem;
+ }
+ .slide-container .name-card .name{
+    margin-right: 40px;
+    font-weight: 600;
+    font-size: 1.2rem;
+ }
+ .slider-wrapper{
+     background-color: #230c22;
+ }
+ 
+ .slide-container .dots-wrapper{
+     display: flex;
+     justify-content: center;
+ }
+ .slide-container .dots-wrapper .dots{
+     height: 1.25rem;
+     width: 1.2rem;
+     background-color: rgb(241, 242, 243);
+     opacity: 0.5;
+     border-radius: 50px;
+     margin-right: 6px;
+     cursor: pointer;
+ }
+ 
+ .slide-container .mySlides{
+     padding: 0 30px;
+ }
+ .slide-container .dots-wrapper .w3-white{
+    opacity: 1;
+ 
+ }
+ 
+ .legacy-container{
+     padding: 8vh 14vw;
+ }
+ 
+ 
+ .legacy-container .card1 div{
+     font-size: 1.55rem;
+     margin-bottom: 1.5rem;
+     color: #3a183f;
+     font-weight: 700;
+     line-height: 1.2;
+     font-family: 'Unna', serif;
+ }
+ 
+ .legacy-container .card1 p{
+     font-size: 1.1rem;
+     margin-bottom: 2rem;
+     text-align: center;
+     color: #230c22;
+ 
+ 
+ }
+ 
+ .legacy-container .card2{
+     position: relative;
+     height: 60vw;
+     max-height: 50vh
+ }
+ .legacy-container .card2 img{
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     left: 0;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     object-fit: contain;
+     color: transparent;
+ }
+ 
+ footer{
+     display: flex;
+     padding: 5rem 10vw 5rem 5vw;
+     background-color: #230c22;
+     color: white;
+ 
+ }
+  footer .card1{
+     flex-grow: 1;
+ }
+ footer .card1 .wrapper{
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+ }
+ footer .card2 .wrapper{
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+     align-items: center;
+ }
+ 
+ footer .card2{
+     flex-grow: 2;
+ }
+ 
+ footer .card2 .wrapper .items{
+     margin: 2.5px;
+ }
+ footer .card2 .wrapper .items a{
+     color: white;
+     text-decoration: none;
+     font-size: 1rem;
+     font-weight: 500;
+ 
+ }
+ 
+ footer .card1 .logo{
+     font-size: 1.8rem;
+     font-weight: 800;
+     padding: 0;
+     margin: 0;
+     font-family: 'Unna', serif;
+ }
+ 
+ footer .card1 .chakra-text{
+     font-size: 1.2rem;
+     font-weight: 500;
+     padding: 0;
+     margin: 0;
+     font-family: 'Unna', serif;
+ }
+ footer .card1 .icon-card a{
+     margin: 5px;
+     font-size: 35px;
+     color: white;
+ }
+ @media screen and (min-width:320px) {
+ 
+ }
+ 
+ @media screen and (min-width:481px) {
+ 
+ }
+ 
+ @media screen and (min-width:768px) {
+     .hero-tab .card1{
+         margin-top: 37px;
+     }
+ 
+     .social-tab .card1{
+         text-align: center;
+         width: 70vw;
+     }
+ }
+ @media screen and (min-width:992px) {
+     .hero-tab{
+         flex-direction: row;
+     }
+     .hero-tab .card2{
+         position: absolute;
+         right: 0px;
+     }
+     .after-glow .card2{
+         flex-direction: row;
+         gap: 5rem;
+     }
+ 
+     .after-glow .card2 h3{
+         font-size: 1.875rem;
+     }
+ }
+ 
+ @media screen and (min-width:1024px) {
+     .hero-tab .card1 h2{
+         font-size: 3rem;
+         line-height: 1.1;
+     }
+     .after-glow .card1 h2{
+         font-size: 3rem;
+ 
+     }
+ }
+ @media screen and (min-width:1440px) {
+ 
+ }

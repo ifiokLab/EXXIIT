@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/family.css' %}">
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <div id="messages">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="family-container">
+      
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="header">
+                <h1 class="title">Add family and friends</h1>
+                <p>Family is not defined by our genes, but by the people in our lives who love us and support us</p>
+            </div>
+
+            <div class="input-container">
+                <select name="deceased" required="" id="id_deceased" hidden>
+                    <option selected value="{{deceased.id}}">{{deceased.first_name}}}</option>
+                </select>
+               <div class="items">
+                    <label for="">User</label>
+                    <input  id="search-bar" type="text" placeholder="Search for users...">
+                    <input type="hidden" id="user" name="user" required>
+               </div>
+
+               <div class="items">
+                    <label for="">Relationship</label>
+                   {{form.relationship_type }}
+                </div>
+            </div>
+
+            <div class="btn-card">
+                <button type="submit">Add to friends & family</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script src="{% static 'javascript/family.js' %}"></script>
+</html>

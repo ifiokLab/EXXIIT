@@ -1,0 +1,141 @@
+
+*{
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all .2s linear;
+   
+}
+i{
+    cursor: pointer;
+}
+
+
+html,body {
+    overflow-x: hidden;
+    margin: 0;
+}
+body{
+    font-family: 'Open Sans',sans-serif;
+    color: #230c22;
+    background-color: #FFFFFF;
+    transition-property: background-color;
+    line-height: 1.5;
+    transition-duration: 200ms;
+    min-height: 100vh;
+    font-size:  62.5%;
+   
+    position: relative;
+}
+
+.family-container{
+  
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.family-container form{
+  border-radius: 8px;
+    padding: 30px 20px;
+    max-width: 400px;
+    box-shadow: 0 0 10px 2px #dfe1e6;
+}
+
+.family-container .header h1{
+    margin: 0;
+    padding: 0;
+    font-family: 'Fugaz One', cursive;
+}
+.family-container .header p{
+    font-size: 1rem;
+  
+    font-family: 'Fugaz One', cursive;
+}
+.family-container .header{
+    text-align: center;
+}
+
+.family-container .input-container{
+    margin: 20px 0;
+}
+
+.family-container .input-container .items{
+   
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+    position: relative;
+}
+
+.family-container .input-container .items label{
+    font-size: 1rem;
+}
+
+.family-container .input-container .items input,.family-container .input-container .items select{
+    padding: 6px 10px;
+    border: solid #dfe1e6 1px;
+    border-radius: 6px;
+}
+
+.family-container .input-container .items input:focus, .family-container .input-container .items select:focus{
+    border: solid #3a183f 1px;
+}
+
+.family-container  .input-container .items label{
+    font-weight: 700;
+    font-size: .8rem;
+}
+
+
+.family-container  .btn-card{
+    margin: 30px 0;
+}
+.family-container  .btn-card button{
+    cursor: pointer;
+    width: 100%;
+    background-color: blue;
+    border: transparent;
+    border-radius: 2px;
+    padding: 10px 20px;
+    color: white;
+}
+
+.family-container  .btn-card button:hover{
+    background-color: #1e90ff;
+}
+
+
+
+#messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    z-index: 9999;
+    
+}
+
+
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+   
+    z-index: 100;
+}
+.autocomplete-item {
+    padding: 8px;
+    cursor: pointer;
+}
+.autocomplete-item:hover {
+    background-color: #f1f1f1;
+}

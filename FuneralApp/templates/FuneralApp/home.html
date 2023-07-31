@@ -1,0 +1,121 @@
+{% extends 'FuneralApp/index.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="body-wrapper">
+    <div class="hero-tab">
+        <div class="card1">
+            <h2 class="chakra-heading">Remember your loved ones forever with beautiful online memorials</h2>
+            <p class="chakra-text">Collaborate with family and friends to create beautiful, emotional memorials for your loved ones in minutes</p>
+            <div class="chakra-stack">
+                <a class="chakra-link" href="{% url 'memorials' %}">Create a Memorial</a>
+                
+            </div>
+            
+        </div>
+        <video class="card2" loop  muted autoplay src="https://static.after.io/homepage/after_demo_video.mp4"></video>
+    </div>
+    <div class="social-tab">
+        <div class="card1">
+            <h2 class="chakra-heading css-1g1fy36">Our loved ones deserve to be remembered forever</h2>
+            <p class="chakra-text css-1fv7xpl">Bond with close friends and family on your own free private social network and collect the bits and pieces of their remarkable life story</p>
+        </div>
+        <div class="card2">
+            <img src="https://after.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fafter_previews_with_illustrations.5f519f8b.jpeg&w=1200&q=75" alt="">
+        </div>
+    </div>
+
+    <div class="after-glow">
+        <div class="card1">
+            <h2 class="chakra-heading">Keep their afterglow shining bright</h2>
+        </div>
+        <div class="card2">
+            <div class="items">
+                <h3 class="chakra-heading">Stunning Timeline</h3>
+                <p class="chakra-text">Life stories deserve more than to be summed up with an obituary. Create a timeline that tells the whole story, the way you want and they would have wanted. Add photos, videos, stories, audio, and more to tell a vibrant story.</p>
+            </div>
+            <div class="items">
+                <h3 class="chakra-heading css-c3n97">Collaborative &amp; Easy</h3>
+                <p class="chakra-text css-0">The more people you invite, the more vibrant the timeline becomes. The platform is designed with older family members in mind to allow everyone to contribute at their own pace, whenever a memory comes to them.</p>
+            </div>
+            <div class="items">
+                <h3 class="chakra-heading">Private &amp; Secure</h3>
+                <p class="chakra-text">Invite everyone touched by your loved <!-- -->one's life<!-- -->, inspire them to collect amazing stories, and help each other heal through your own free, private and secure social network, and share your work publicly or only with close family and friends.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-wrapper">
+        <div class="slide-container">
+            <div class="mySlides">
+                <p class="text">
+                    “My father died five years ago and just a few days before he died he recorded a voice mail that I still have just so I can listen to it. I didn't know what else to do with it until now. I am glad that I can have it here in After as I was worried that the phone might die and that I'd lose the message for ever”</p>
+                <div class="name-card">
+                    <p class="name">Janet</p>
+                    <p class="city">Austin, Texas</p>
+                </div>
+            </div>
+            <div class="mySlides" style="display: none;">
+                <p class="text">
+                    “I came back from the funeral and I was hanging my black dress in the closet and I just stood there, I didn't want to close the door. I don't want ever to forget. Creating a memorial with After has allowed me to talk about my son more, and that helps me heal”
+                </p>
+                <div class="name-card">
+                    <p class="name">Mfon</p>
+                    <p class="city">Austin, Texas</p>
+                </div>
+            </div>
+            <div class="mySlides" style="display: none;">
+                <p class="text">
+                    “I had my mom's diary in a box under the bed. It had so many cool and interesting stories and I had no idea how to share with the family. Sharing these stories on After made me and my siblings feel closer to each other”
+                </p>
+                <div class="name-card">
+                    <p class="name">Sandy</p>
+                    <p class="city">Austin, Texas</p>
+                </div>
+            </div>
+            <div class="mySlides" style="display: none;">
+                <p class="text">
+                    “I was afraid my children will grow up not knowing my mother. photos don't do her justice. they don't tell the full story. Her personality. this is something that I liked And so did your mother and so did your grandmother”
+                </p>
+                <div class="name-card">
+                    <p class="name">Ifiok</p>
+                    <p class="city">Austin, Texas</p>
+                </div>
+            </div>
+           
+            <div class="wrapper">
+                <div class="icon-left" onclick="plusDivs(-1)">&#10094;</div>
+                <div class="icon-right" onclick="plusDivs(1)">&#10095;</div>
+            </div>
+            <div class="dots-wrapper">
+                <div class="dots" onclick="currentDiv(1)"></div>
+                <div class="dots" onclick="currentDiv(2)"></div>
+                <div class="dots" onclick="currentDiv(3)"></div>
+                <div class="dots" onclick="currentDiv(4)"></div>
+           </div>
+        </div>
+    </div>
+
+    <div class="legacy-container">
+        <div class="card1">
+            <h2 class="chakra-heading css-qqbyd3">We are committed to preserving all life stories so we continue to be inspired by the legacy of those who came before us</h2>
+            <p class="chakra-text">It is an unsettling fact that the vast majority of the 107 billion people who have entered this world left no trace of themselves. Public tributes have long been reserved for a small handful of celebrities and leaders, while the rest of us hope against the odds that our own descendants might at least remember our names or keep our photos, until those too eventually fade. The Covid-19 pandemic has focused attention not just on the value of life, but also on the uncomfortable question of how to deal with loss and honor those who have passed.</p>
+            <p class="chakra-text">Some comfort is offered by obituaries and genealogy websites, but trying to sum up entire lives in one paragraph, or trying to understand a personality by gathering stories from distant relatives at funerals <!-- -->doesn't<!-- --> do them justice. Distant memories are difficult to recall at the best of times, let alone when grieving. Our loved ones are too often remembered as a formulaic, one-paragraph summaries, instead of the meaningful tributes they deserve.</p>
+            <p class="chakra-text">We want to change the way people deal with loss, help them through the duties that come with bereavement, and promote the celebration of lives that have run their course. <!-- -->That's<!-- --> why we created After Memorials, a community social media platform that allows friends and families to come together to commemorate a loved <!-- -->one's<!-- --> life, preserve their legacy, and help each other heal.</p>
+        </div>
+        <div class="card2">
+            <img src="https://after.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fafter_old_photos_illustration.ed00fe26.jpg&w=1920&q=75" alt="">
+        </div>
+    </div>
+
+   
+</div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'javascript/home.js' %}"></script>
+{% endblock %}

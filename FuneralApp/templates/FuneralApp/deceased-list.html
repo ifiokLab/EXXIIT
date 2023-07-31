@@ -1,0 +1,166 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'css/deceased-list.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unna&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <header>
+        <div class="logo"> <a style="text-decoration: none;color:white;" href="{% url 'home' %}">Futurism</a></div>
+        <div class="card2">
+            <div class="notification" onclick="notification()">
+                <i class="fa-regular fa-bell"></i>
+            </div>
+            <div class="profile" onclick="profile()">
+                <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
+            </div>
+        </div>
+    </header>
+    <div class="notification-wrapper" id="notification-wrapper" onclick="close_not(event)">
+        <div class="not-box" >
+            <div class="header">
+                <div class="title">Notifications</div>
+                <button onclick="notification()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="body">
+                <div class="empty">You have no notifications</div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-card" id="profile-card">
+        <div class="header">Signed in as {{request.user}}</div>
+        <div class="body">
+            <a href="{% url 'memorials' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-house"></i></div>
+                <div class="texts">Your Memorials</div>
+            </a>
+            <a href="{% url 'recent_memorial' %}" class="items">
+                <div class="icons"><i class="fa-sharp fa-solid fa-newspaper"></i></div>
+                <div class="texts">Recent Memorials</div>
+            </a>
+            {% if profile %}
+            <a href="{% url 'account' request.user.id %}" class="items">
+                <div class="icons"><i class="fa-solid fa-circle-user"></i></div>
+                <div class="texts">Account Settings</div>
+            </a>
+            {% endif %}
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-circle-question"></i></div>
+                <div class="texts">Help</div>
+            </a>
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="texts">Terms of service</div>
+            </a>
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-lock-keyhole"></i></div>
+                <div class="texts">Privacy policy</div>
+            </a>
+            <a href="{% url 'logout' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                <div class="texts">Logout</div>
+            </a>
+
+        </div>
+    </div>
+
+    <div class="body-container">
+        <div class="wrapper">
+             <div class="card1">
+                 <div class="box1">
+                     <div class="profile">
+                         <div class="text">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
+                     </div>
+                     <div class="title">Welcome, {{request.user.first_name}}</div>
+                 </div>
+                 <div class="box2">
+                    {% if data %}
+                    <a style="border-radius: 50px;" href="{% url 'create_memorial' %}" class="icon"><i class="fa-solid fa-circle-plus"></i></a>
+                     {% else %}
+                     <a href="{% url 'create_memorial' %}">Create Memorial</a>
+                    
+                     {% endif %}
+                 </div>
+                 
+             </div>
+             <div class="card2">
+                 <div class="mem-card">
+                     <button>Memorials</button>
+                 </div>
+                 {% for items in data %}
+                 <div class="mem-snippet">
+                     <div class="shaded"></div>
+                     <div class="box">
+                         <div class="card1">
+                             <a href="{% url 'create_biography' items.id %}">{{items.first_name}} {{items.last_name}}</a>
+                             <p>{{items.month_birth}} {{items.day_birth}}, {{items.year_birth}} - {{items.month_death}} {{items.day_death}}, {{items.year_death}}</p>
+                             <div class="public">PUBLIC</div>
+                         </div>
+                         <div class="card2" onclick="menu_share({{items.id}})">
+                             <i class="fa-solid fa-ellipsis-vertical"></i>
+                             
+                            
+                         </div>
+                     </div>
+                     <div class="menu-share" id="menu-share-{{items.id}}">
+                        <div class="items">
+                            <div class="icons"><i class="fa-solid fa-share-nodes"></i></div>
+                            <div class="text">Share Memorial</div>
+                        </div>
+                        <div class="items">
+                            <div class="icons"><i class="fa-solid fa-gear"></i></div>
+                            <div class="text">Edit Settings</div>
+                        </div>
+                   </div>
+                 </div>
+                 <div class="modal" id="modal-{{items.id}}" onclick="menu_share({{items.id}})"></div>
+                 {% endfor %}
+
+                 {% if memorials %}
+                    <div class="mem-snippet">
+                        <div class="shaded"></div>
+                        <div class="box">
+                            <div class="card1">
+                                <a href="{% url 'create_biography' memorials.id %}">{{memorials.first_name}} {{memorials.last_name}}</a>
+                                <p>{{memorials.month_birth}} {{memorials.day_birth}}, {{memorials.year_birth}} - {{memorials.month_death}} {{memorials.day_death}}, {{memorials.year_death}}</p>
+                                <div class="public">Contributor</div>
+                            </div>
+                            <div class="card2" onclick="menu_share({{memorials.id}})">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                
+                            
+                            </div>
+                        </div>
+                        <div class="menu-share" id="menu-share-{{memorials.id}}">
+                        <div class="items">
+                            <div class="icons"><i class="fa-solid fa-share-nodes"></i></div>
+                            <div class="text">Share Memorial</div>
+                        </div>
+                        <div class="items">
+                            <div class="icons"><i class="fa-solid fa-gear"></i></div>
+                            <div class="text">Edit Settings</div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="modal" id="modal-{{memorials.id}}" onclick="menu_share({{memorials.id}})"></div>
+                 {% endif %}
+             </div>
+            
+        </div>
+       
+     </div>
+
+</body>
+<script src="{% static 'javascript/deceased-list.js' %}"></script>
+</html>
+

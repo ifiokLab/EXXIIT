@@ -1,0 +1,339 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all .2s linear;
+
+}
+i{
+    cursor: pointer;
+}
+
+
+html,body {
+    overflow-x: hidden;
+    margin: 0;
+}
+body{
+    font-family: 'Open Sans',sans-serif;
+    color: #230c22;
+    background-color: #FFFFFF;
+    transition-property: background-color;
+    line-height: 1.5;
+    transition-duration: 200ms;
+    min-height: 100vh;
+    font-size:  62.5%;
+    position: relative;
+}
+
+header{
+    padding: 1px 7vw;
+     background-color: #230c22;
+    box-shadow: 0px 1px 5px gray;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 100;
+
+}
+
+.header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-container .card1{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #657287;
+    font-family: 'Unna', serif;
+    color: white;
+
+}
+.header-container .card2 a{
+    text-decoration: none;
+    color: #657287;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: white;
+    font-family: 'Unna', serif;
+}
+.header-container .card2 .login{
+    margin-left: 25px;
+}
+
+
+
+footer{
+    display: flex;
+    padding: 5rem 10vw 5rem 5vw;
+    background-color: #230c22;
+    color: white;
+
+}
+ footer .card1{
+    flex-grow: 1;
+}
+footer .card1 .wrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+footer .card2 .wrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer .card2{
+    flex-grow: 2;
+}
+
+footer .card2 .wrapper .items{
+    margin: 2.5px;
+}
+footer .card2 .wrapper .items a{
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+footer .card1 .logo{
+    font-size: 1.8rem;
+    font-weight: 800;
+    padding: 0;
+    margin: 0;
+    font-family: 'Unna', serif;
+}
+
+footer .card1 .chakra-text{
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    font-family: 'Unna', serif;
+}
+footer .card1 .icon-card a{
+    margin: 5px;
+    font-size: 35px;
+    color: white;
+}
+
+
+
+
+/* Preloader Styles */
+.preloader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #230c22;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+
+    position: relative;
+    margin: 100px auto;
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+
+@-webkit-keyframes sk-bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+    0%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}
+
+#preloader-wrapper.hidden{
+    display: none;
+}
+
+.fixed-nav, .index-form{
+    display: none;
+}
+
+.wrapper-social{
+    margin: 120px 30px 0 30px;
+}
+
+.wrapper-social p{
+    font-size: 1rem;
+}
+.social-signup{
+   font-size: 1rem;
+   margin: 0 30px;
+}
+
+.social-signup label{
+    font-weight: 600;
+}
+
+.social-signup button{
+    background-color: #3a183f;
+    color: white;
+    border: transparent;
+    padding: 12px 25px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    transition: background-color .25s ease-in-out,box-shadow .25s ease-in-out;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+
+.social-signup button:hover{
+    background-color:#230c22;
+}
+
+
+.social-signup input{
+    padding: 8px 14px;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+    outline:solid #c2c8d0 1px;
+    border-radius: 5px;
+    border: transparent;
+
+
+}
+
+.social-signup input:focus{
+    outline:solid#230c22 2px;
+
+}
+
+@media screen and (max-width:600px) {
+
+    .fixed-nav{
+        position: fixed;
+        z-index: 2300;
+        padding:  10px 20px;
+        bottom: 0;
+        left: 0;right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: rgba(0, 0,0,0.98);
+    }
+    .fixed-nav .btns{
+        text-decoration: none;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+    .fixed-nav .btns:hover{
+        color: #c2c8d0;
+    }
+    .fixed-nav .profile{
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        background-color: white;
+        color: #230c22;
+        font-size: .9rem;
+    }
+    .fixed-nav .profile:hover{
+        color: #230c22;
+        background-color: #c2c8d0;
+    }
+
+    .index-form{
+        position: fixed;
+        left: 0;right: 0;
+        border: dashed;
+        width: 100%;
+        height: 100vh;
+        z-index: 2200;
+        background-color: rgba(0, 0,0,0.6);
+        top: 0;
+        display: none;
+    }
+    .index-form .wrapper{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 20px;
+    }
+    .index-form .search-container{
+        position: relative;
+        width: 100%;
+        color: #230c22;
+    }
+    .index-form .search-container input{
+        width: 100%;
+        padding: 10px 10px 10px 35px;
+        font-size: .9rem;
+        border-radius: 50px;
+        background-color:#F7FAFC;
+        font-size: 1rem;
+        outline: none;
+        border: none;
+    }
+
+    .index-form .search-container input::placeholder{
+        color: #3a183f;
+    }
+    .index-form .search-container input:focus{
+        outline: solid #4a85c9 2.5px;
+    }
+    .index-form .search-container .icon{
+        position: absolute;
+        top: 20%;
+        left: 12px;
+        font-size: 1rem;
+        font-weight: 900;
+        color: #230c22;
+    }
+    .index-form .close{
+        font-size: 2rem;
+        color: white;
+        position: absolute;
+        top: 20px;right: 20px;
+    }
+}

@@ -1,0 +1,138 @@
+{% extends 'FuneralApp/index.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/memorial.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="form-wrapper">
+    <form action="" id="regForm" method="POST" >
+        {% csrf_token %}
+        <div class="header">
+            <h2>Futurism</h2>
+            <div class="progress-container">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="left-icon"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="progress" >
+                    <progress id="bar" role="progressbar" max="3" min = '0' value="3" ></progress>
+                </div>
+                <div class="stage" id="stage"></div>
+            </div>
+        </div>
+    
+        <div class="tab life">
+            <div class="card1">
+                <h2>Whose life are you memorializing?</h2>
+                <div class="items">
+                   <!--<input type="hidden" name="user" value="{{request.user.id}}">-->
+                    <label for="">First Name</label>
+                    {{form.first_name}}
+                </div>
+                <div class="items">
+                    <label for="">Middle Name</label>
+                    {{form.middle_name}}
+                </div>
+                <div class="items">
+                    <label for="">Last Name</label>
+                    {{form.last_name}}
+                </div>
+                <div class="items">
+                    <label for="">City</label>
+                    {{form.location}}
+                </div>
+            </div>
+            <div class="card2">
+                <button type="reset"  class="cancel">Cancel</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="next">Next Step</button>
+            </div>
+        </div>
+    
+        <div class="tab born" >
+            <div class="card1">
+                <h2 id="born"></h2>
+                <div class="items">
+                   <div class="title">Date of Birth</div>
+                   <div class="box-card">
+                    <div class="box">
+                        <label for="">Month</label>
+                        {{form.month_birth}}
+                    </div>
+                    <div class="box">
+                        <label for="">Day</label>
+                        {{form.day_birth}}
+                    </div>
+                    <div class="box">
+                        <label for="">Year</label>
+                        {{form.year_birth}}
+                    </div>
+                   </div>
+                </div>
+                <div class="items">
+                    <div class="title">Date of Passing(optional)</div>
+                    <div class="box-card">
+                     <div class="box">
+                         <label for="">Month</label>
+                         {{form.month_death}}
+                     </div>
+                     <div class="box">
+                         <label for="">Day</label>
+                         {{form.day_death}}
+                     </div>
+                     <div class="box">
+                         <label for="">Year</label>
+                         {{form.year_death}}
+                     </div>
+                    </div>
+                 </div>
+            </div>
+            <div class="card2">
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next Step</button>
+            </div>
+        </div>
+    
+        <div class="tab photo">
+            <div class="card1">
+                <h2>Add photos</h2>
+                <div class="items" >
+                    <div class="title">One of these photos will be the cover to deceased's Memorial. You can change it anytime.</div>
+                   <div class="card-img">
+                    <img src="{% static 'images/memorial-blank-state-min.webp' %}" alt="">
+                   </div>
+                 </div>
+            </div>
+    
+            <div class="card2">
+                <button type="submit" class="cancel">Skip for now</button>
+                <button type="submit" class="next">Add Photos</button>
+            </div>
+        </div>
+      </form>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'javascript/memorial.js' %}"></script>
+{% endblock %}
+
+
+
+
+<div class = 'box-sender'>
+    <div class = "message-card">
+        <div class="file-wrapper">
+            <div class="file-iconX"><i class="fa-solid fa-file"></i></div>
+            <div class="file-desc">
+              <div class="title">
+                <a href="">
+                  ${filename}
+                </a>
+              </div>
+              <div class="size">1.2kb</div>
+            </div>
+          </div>
+        <div class = "text">${data.content}</div>
+        <div class = "date">
+            <span>${data.created_at}</span>
+            <span><i class="fa-solid fa-check-double"></i></span>
+        </div>
+    </div>
+</div>

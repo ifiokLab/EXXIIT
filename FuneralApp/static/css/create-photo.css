@@ -1,0 +1,200 @@
+
+*{
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all .2s linear;
+   
+}
+i{
+    cursor: pointer;
+}
+
+
+html,body {
+    overflow-x: hidden;
+    margin: 0;
+}
+body{
+    font-family: 'Open Sans',sans-serif;
+    color: #1A202C;
+    background-color: #FFFFFF;
+    transition-property: background-color;
+    line-height: 1.5;
+    transition-duration: 200ms;
+    min-height: 100vh;
+    font-size:  62.5%;
+    position: relative;
+}
+
+
+#messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    z-index: 9999;
+    display: none;
+}
+
+
+
+
+.photo-container{
+    position: absolute;
+    top: 0;left: 0;right: 0;bottom: 0;
+    background-color: white;
+    z-index: 2000;
+    min-height: 100vh;
+    overflow-y: scroll;
+    
+}
+#photo-container.show{
+   display: block;
+}
+
+.photo-container .header{
+    position: fixed;
+    padding: 20px 38px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+    top: 0;
+    left: 0;right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+   
+}
+
+.photo-container .header .title{
+    font-size: 1.3rem;
+    color: #230c22;
+    font-weight: 700;
+    font-family: 'Unna',serif;
+    
+}
+
+.photo-container .btn-x{
+    font-size: 1.2rem;
+    color: #230c22;
+    font-weight: 700;
+    font-family: 'Unna',serif;
+    text-align: center;
+    padding: 5px;
+}
+
+
+.photo-wrapper{
+    margin: 100px 0;
+    display:flex ;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-a{
+    padding: 26px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    max-width: 400px;
+    border-radius: 8px ;
+}
+.photo-wrapper .meaning{
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: 'Unna',serif;
+    text-align: center;
+}
+
+
+
+
+
+.photo-wrapper .box-a{
+    display: flex;
+    align-items: center;
+}
+
+.photo-wrapper .box-a .card1{
+    margin-right: 20px;
+    
+}
+
+
+.photo-wrapper .box-a .card1 .desc{
+    width: 100%;
+    padding: 8px 20px;
+    outline:solid #c2c8d0 1px;
+    border-radius: 5px;
+    border: transparent;
+    margin: 8px 0;
+    
+}
+.photo-wrapper .box-a .card1 .desc::placeholder{
+    color: #c2c8d0;
+}
+
+.photo-wrapper .box-a .card1 .desc:focus{
+    outline:solid #3a183f 2px;
+    border: transparent;
+}
+.photo-wrapper .box-a .card2{
+    font-size: 1rem;
+    color: #E65C4F;
+    font-weight: 600;
+}
+.photo-wrapper .btn-fact{
+    margin: 20px 0;
+}
+.photo-wrapper .btn-fact .button i{
+    margin-right: 12px;
+}
+.photo-wrapper .btn-fact .button{
+   border: transparent;
+   border-radius: 8px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    justify-content: center;
+    background-color: rgb(226, 229, 232);
+    color: #3a183f;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.photo-wrapper .btn-fact .button:hover{
+    background-color: rgb(211, 216, 220);
+}
+
+
+
+.photo-container .footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;right: 0;
+    padding: 10px 50px;
+   background-color: white;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-top: solid #dfe1e6 1px;
+}
+
+.photo-container .footer button{
+    background-color: #3a183f;
+    color: white;
+    padding: 16px 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.photo-container .footer button:hover{
+    background-color: #230c22;
+}

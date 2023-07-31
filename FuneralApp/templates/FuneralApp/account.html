@@ -1,0 +1,162 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unna&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <div id="messages">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <header>
+        <div class="logo"> <a style="text-decoration: none;color:white;" href="{% url 'home' %}">Futurism</a></div>
+        <div class="card2">
+            <div class="notification" onclick="notification()">
+                <i class="fa-regular fa-bell"></i>
+            </div>
+            <div class="profile" onclick="profile()">
+                <div class="name">{{request.user.first_name.0|upper}}{{request.user.last_name.0|upper}}</div>
+            </div>
+        </div>
+    </header>
+    <div class="notification-wrapper" id="notification-wrapper" onclick="close_not(event)">
+        <div class="not-box" >
+            <div class="header">
+                <div class="title">Notifications</div>
+                <button onclick="notification()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="body">
+                <div class="empty">You have no notifications</div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-card" id="profile-card">
+        <div class="header">Signed in as {{request.user}}</div>
+        <div class="body">
+            <a href="{% url 'memorials' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-house"></i></div>
+                <div class="texts">Your Memorials</div>
+            </a>
+            <a href="{% url 'account' request.user.id %}" class="items">
+                <div class="icons"><i class="fa-solid fa-circle-user"></i></div>
+                <div class="texts">Account Settings</div>
+            </a>
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-circle-question"></i></div>
+                <div class="texts">Help</div>
+            </a>
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="texts">Terms of service</div>
+            </a>
+            <a href="" class="items">
+                <div class="icons"><i class="fa-solid fa-lock-keyhole"></i></div>
+                <div class="texts">Privacy policy</div>
+            </a>
+            <a href="{% url 'account_logout' %}" class="items">
+                <div class="icons"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                <div class="texts">Logout</div>
+            </a>
+
+        </div>
+    </div>
+    <div class="body-container">
+        <div class="wrapper">
+            <div class="container1">
+                <div class="title">Account Settings</div>
+            </div>
+           
+            <form action="" class="container2" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                <div class="slide1">
+                    <div class="card1">
+                        <div class="title">Profile</div>
+                    </div>
+                    <div class="card2">
+                        <div class="box1">
+                            <div class="input-card">
+                                <div class="label">Phone Number</div>
+                                {{form1.phone_number}}
+                            </div>
+                            <div class="input-card">
+                                <div class="label">Address</div>
+                               {{form1.address}}
+                               <input type="hidden" name="user" value="{{request.user.id}}">
+                            </div>
+                        </div>
+                        <div class="box2">
+                           
+                            <div class="item1">
+                                {% if profile.image %}
+                                <div class="profile-image-x">
+                                    <img id="image-preview"  src="{{profile.image.url}}" alt="image preview">
+                                </div>
+                                <label class="icon" for="image-upload" >
+                                    <i class="fa-solid fa-camera"></i>
+                                    <input name="image" id="image-upload" type="file" accept="image/*" style="display:none;">
+                                </label>
+                                {% else %}
+                                    <div class="profile" id="profile-text">IU</div>
+                                    <div class="profile-image"  id="profile-image">
+                                        <img id="image-preview" src="" alt="image preview"  style="display:none;">
+                                    </div>
+                                
+                                    <label class="icon" for="image-upload" >
+                                        <i class="fa-solid fa-camera"></i>
+                                        <input name="image" id="image-upload" type="file" accept="image/*" style="display:none;">
+                                    </label>
+                                {% endif %}
+                            </div>
+                            <div class="item2">
+                                <button type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide2">
+                    <div class="card1">
+                        <div class="title">Account</div>
+                    </div>
+                    <div class="card2">
+                        <div class="box1">
+                           
+                            
+                         
+                            <div class="input-card">
+                                <div class="label">Email</div>
+                                <input type="email" name="email" maxlength="254" value="{{user.email}}"  id="my_email" required="" disabled>
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="upload-container">
+        <div class="upload-wrapper">
+            <div class="header">
+                <div class="icon"><i class="fa-solid fa-laptop"></i></div>
+                <div class="cancel"><i class="fa-sharp fa-solid fa-xmark"></i></div>
+            </div>
+        </div>
+    </div>
+   
+
+</body>
+<script src="{% static 'javascript/account.js' %}"></script>
+</html>
+

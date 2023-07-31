@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+    <title>EXIIT</title>
+</head>
+<style>
+   
+   *{
+    font-family: 'Fugaz One', cursive;
+   }
+body{
+	background:#000;
+}
+.holder {
+  margin: 12rem auto 0;
+  width: 150px;
+  height: 200px;
+  position: relative;
+}
+.holder *, .holder *:before, .holder *:after {
+  position: absolute;
+  content: "";
+}
+
+.candle {
+  bottom: 0;
+  width: 150px;
+  height: 200px;
+  border-radius: 150px / 40px;
+  
+  background: #190f02;
+ background: linear-gradient(#e48825, #e78e0e, #833c03);
+}
+.candle:before {
+  width: 100%;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #d47401;
+  background: #b86409;
+ 
+}
+
+.candle:after {
+  width: 33px;
+  height: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  top: 14px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+ 
+}
+
+.thread {  
+  width: 6px;
+  height: 36px;
+  top: -17px;
+  left: 50%;
+  z-index: 1;
+  border-radius: 40% 40% 0 0;
+  transform: translateX(-50%);
+  background: #121212;
+  
+}
+
+.flame {
+  width: 24px;
+  height: 120px;
+  left: 50%;
+  transform-origin: 50% 100%;
+  transform: translateX(-50%);
+  bottom: 100%;
+  border-radius: 50% 50% 20% 20%;
+  
+ 
+  background: linear-gradient(white 80%, transparent);
+  animation: moveFlame 4s linear infinite, enlargeFlame 3s linear infinite;
+}
+
+@keyframes moveFlame {
+  0%, 100% {
+    transform: translateX(-50%) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(5deg);
+  }
+}
+
+@keyframes enlargeFlame {
+  0%, 100% {
+    height: 120px;
+  }
+  50% {
+    height: 140px;
+  }
+}
+
+.glow {
+  width: 26px;
+  height: 60px;
+  border-radius: 50% 50% 35% 35%;
+  left: 50%;
+  top: -48px;
+  transform: translateX(-50%);
+  background: rgba(0, 133, 255, .7);
+  box-shadow: 0 -40px 30px 0 #dc8a0c, 0 40px 50px 0 #dc8a0c,
+  inset 3px 0 2px 0 rgba(0, 133, 255, .6), 
+  inset -3px 0 2px 0 rgba(0, 133, 255, .6);
+}
+
+.glow:before {
+  width: 70%;
+  height: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.blinking-glow {
+  width: 100px;
+  height: 180px;
+  left: 50%;
+  top: -55%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #ff6000;
+
+  filter: blur(60px);
+  animation: blinkIt .1s infinite;
+}
+
+@keyframes blinkIt {
+  50% { opacity: .8;}
+}
+
+h1{
+  font-family: 'Fugaz One', cursive;
+}
+</style>
+<body>
+    <div class="holder">
+     
+        <div class="candle">
+            <div class="blinking-glow"></div>
+            <div class="thread"></div>
+            <div class="glow"></div>
+            <div class="flame"></div>
+        </div>
+    </div>
+   
+  <div style="text-align: center;">
+    <marquee behavior="scroll" direction="left"><img src="C:\Users\Acer\Desktop\FuneralSite\FuneralApp\static\images\mobile-large.png" alt=""></marquee>
+
+    <h1 style="color: white;text-align: center;" >in loving memory of {{deceased.first_name}} {{deceased.last_name}}</h1>
+    <audio hidden id="myAudio" controls autoplay loop src="{% static 'images/too.mp3' %}" ></audio>
+  </div>
+</body>
+<script>
+  var audio = document.getElementById("myAudio");
+  audio.play();
+</script>
+</html>
